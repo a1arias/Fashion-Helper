@@ -1,0 +1,13 @@
+!!! 5
+html
+  head
+    title= title
+    block css
+      link(rel='stylesheet', href='/stylesheets/style.css')
+    block scripts
+      script(type='text/javascript', src='javascripts/jquery.min.js')
+  body
+    // h1#title= title
+    // include includes/nav
+    block content
+      // override
