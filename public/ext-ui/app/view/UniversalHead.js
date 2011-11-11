@@ -19,13 +19,22 @@ Ext.define('FashionHelper.view.UniversalHead', {
 				pack: 'center'
 			},
 			items: [{
-				type: 'component',
-				html: '<h1>FashionHelper</h1>'
+				xtype: 'component',
+				autoEl: {
+					tag: 'h1'
+				},
+				html: 'FashionHelper'
 			}, {
-				type: 'component',
-				html: '<a href="#!/home">Home</a>',
+				xtype: 'component',
+				autoEl: {
+					tag: 'a',
+					href: '#!/home'
+				},
+				html: 'Home',
 				action: 'home'
 			}]
 		};
+
+		this.callParent(arguments);
 	}
 });
