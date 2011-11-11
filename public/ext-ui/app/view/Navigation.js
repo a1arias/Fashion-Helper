@@ -35,7 +35,7 @@ Ext.define('FashionHelper.view.Navigation', {
 				flex: 2,
 				autoEl: {
 					tag: 'a',
-					href: '#!/home',
+					href: '/',
 					html: 'Home'
 				},
 				action: 'home'
@@ -54,6 +54,7 @@ Ext.define('FashionHelper.view.Navigation', {
 				autoEl: {
 					tag: 'a',
 					href: '#!/locale',
+					id: 'golocale',
 					html: 'Locale'
 				}
 			}, {
