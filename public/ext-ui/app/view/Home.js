@@ -10,6 +10,7 @@ Ext.define('FashionHelper.view.Home', {
 	},
 	autoRender: true,
 	autoShow: true,
+	autoDestroy: true,
 
 	initComponent: function(){
 		

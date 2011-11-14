@@ -4,14 +4,5 @@ Ext.application({
     appFolder: '/ext-ui/app',
     autoCreateViewport: true,
 
-    controllers: ['Navigation'],
-
-    // launch: function(){
-    // 	Ext.create('Ext.container.Viewport', {
-    // 		renderTo: Ext.getBody(),
-    // 		items: {
-    // 			xtype: 'navigation'
-    // 		}
-    // 	});
-    // }
+    controllers: ['Navigation']
 });

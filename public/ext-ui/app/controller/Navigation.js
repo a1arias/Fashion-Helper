@@ -1,11 +1,18 @@
 Ext.define('FashionHelper.controller.Navigation', {
 	extend: 'Ext.app.Controller',
 
-	views: ['Navigation'],
-
 	refs : [{
 		ref: 'navigationView',
 		selector: 'navigation'
+	}, {
+		ref: 'portalView',
+		selector: 'portal'
+	}, {
+		ref: 'brandView',
+		selector: 'brand-comp'
+	}, {
+		ref: 'homeView',
+		selector: 'home'
 	}],
 
 	init: function(application){
@@ -29,7 +36,10 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goBrand: function(link){
-		console.log('brand clicked');
+		var portal = this.getPortalView();
+		var brandView = this.getBrandView();
+		portal.removeAll(true);
+		portal.add(brandView);
 	},
 
 	goSize: function(link){
