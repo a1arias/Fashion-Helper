@@ -1,0 +1,14 @@
+extends layout
+
+block css
+	link(rel='stylesheet', href='/stylesheets/style.css')
+
+block scripts
+
+block content
+	div#formcntnr
+		form(action='/locales', method='POST')
+			label(for='name')
+			input(name='name', id='name')
+			input(type='submit', value='add')
+			

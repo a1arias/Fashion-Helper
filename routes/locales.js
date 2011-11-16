@@ -10,24 +10,23 @@ var sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.pas
 //debugger;
 
 // Locale model
-var Locale = sequelize.import(__dirname + "/../models/Locale");
+var Locales = sequelize.import(__dirname + "/../models/Locale");
 //debugger;
 
 // Create the schema if necessary
-Locale.sync();
+Locales.sync();
 
 /**
- * Locale resource actions
+ * GET /locales
  */
 exports.index = function(req, res) {
 
-	debugger;
-	var locales = Locale.findAll().on('success', function(locales){
-		debugger;
+	var locales = Locales.findAll().on('success', function(locales){
+		
 		switch (req.format) {
 
 			case 'json':
-				debugger;
+				// debugger;
 				res.json(locales);
 				break;
 
@@ -48,6 +47,85 @@ exports.index = function(req, res) {
 		}
 	}).on('failure', function(error){
 		debugger;
-		console.dir(error);
+		throw new Error(err);
 	});
+};
+
+/**
+ * GET /locales/new
+ */
+exports.new = function(req, res){
+	res.render('locale_new', {
+		locals: {
+			title: 'New Locale'
+		}
+	});
+};
+
+/**
+ * POST /locales
+ *
+ * TODO: require admin here
+ */
+exports.create = function(req, res){
+	var post = Locales.build({
+		locale: req.body.name
+	});
+	post.save().on('success', function(){
+		res.json({
+			success: true,
+			// locale: {
+			// 	name: req.body.name,
+			// }
+		}, 200);
+	}).on('failure', function(error){
+		// debugger;
+		throw new Error(error);
+	});
+};
+
+/**
+ * GET /locale/:id/edit
+ */
+exports.edit = function(req, res){
+	
+	var localeId = parseInt(req.params.locale);
+	// debugger;
+	Locales.find(localeId).on('success', function(rec){
+		// debugger;
+		res.render('locale_edit', {
+			id: rec.id,
+			title: 'Edit locale: ' + rec.locale,
+			name: rec.locale,
+		});
+	}).on('failure', function(error){
+		// debugger;
+		throw new Error(error);
+	});
+};
+
+/**
+ * PUT /locale/:id
+ */
+exports.update = function(req, res){
+	if(req.body.name){
+		var loc = Locales.build({});
+		loc.updateAttributes({
+			locale: req.body.name,
+			where: {id: req.params.locale}
+		}).on('success', function(id){
+			debugger;
+			res.json({
+				success: true,
+				// locale: {
+				// 	name: req.body.name,
+				// }
+			}, 200);
+		}).on('failure', function(error){
+			debugger;
+			throw new Error(error);
+		});
+	} else {
+		throw new Error('Data not provided')
+	}
 };
