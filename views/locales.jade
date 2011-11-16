@@ -6,4 +6,10 @@ block css
 block scripts
 
 block content
-	
+	p: a(href="/locales/new") New Locale
+	#locales_list
+		- if(locs.length)
+			!= partial('locales_list', {collection: locs, as: 'locale'})
+		- else
+			#no-results No locales found. Create one 
+				a(href="/locales/new") here

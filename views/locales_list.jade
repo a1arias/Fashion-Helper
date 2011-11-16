@@ -1,0 +1,6 @@
+div(class='locale #{ lastInCollection ? 'last': '' }') 
+	div.locale
+		a(href='/locales/'+locale.id+'/edit', title='Edit '+locale.locale) #{locale.locale}
+		form(method='post', action='/locales/'+locale.id)
+			input(type='hidden', name='_method', value='DELETE')
+			input(type='submit', value='Delete')

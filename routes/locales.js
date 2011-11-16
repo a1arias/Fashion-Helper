@@ -37,11 +37,11 @@ exports.index = function(req, res) {
 				break;
 
 			default:
-				//res.send(articles);
+				debugger;
 				res.render('locales', {
 					locals: {
 						title: 'Locales',
-						articles: locales
+						locs: locales
 					}
 				});
 		}
@@ -109,18 +109,22 @@ exports.edit = function(req, res){
  */
 exports.update = function(req, res){
 	if(req.body.name){
-		var loc = Locales.build({});
-		loc.updateAttributes({
-			locale: req.body.name,
-			where: {id: req.params.locale}
-		}).on('success', function(id){
-			debugger;
-			res.json({
-				success: true,
-				// locale: {
-				// 	name: req.body.name,
-				// }
-			}, 200);
+		var localeId = parseInt(req.params.locale);
+		Locales.find(localeId).on('success', function(loc){
+			loc.updateAttributes({
+				locale: req.body.name
+			}).on('success', function(id){
+				debugger;
+				res.json({
+					success: true,
+					// locale: {
+					// 	name: req.body.name,
+					// }
+				}, 200);
+			}).on('failure', function(error){
+				debugger;
+				throw new Error(error);
+			});
 		}).on('failure', function(error){
 			debugger;
 			throw new Error(error);
@@ -128,4 +132,24 @@ exports.update = function(req, res){
 	} else {
 		throw new Error('Data not provided')
 	}
+};
+
+/**
+ * DELETE /locale/:id
+ */
+exports.destroy = function(req, res){
+	var localeId = parseInt(req.params.locale);
+	Locales.find(localeId).on('success', function(loc){
+		loc.destroy().on('success', function(poo){
+			res.json({
+				success: true,
+			}, 200);
+		}).on('failure', function(error){
+			debugger;
+			throw new Error(error);
+		});
+	}).on('failure', function(error){
+		debugger;
+		throw new Error(error);
+	});
 };
