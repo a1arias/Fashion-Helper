@@ -6,7 +6,6 @@
 var express = require('express'),
     resource = require('express-resource'),
     routes = require('./config.js').routes,
-    sequelize = require('./lib/MysqlConnectionFactory.js').sequelize,
 
     // create global app object that contains all modules and routes
     app = module.exports = express.createServer();
