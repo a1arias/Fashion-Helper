@@ -52,7 +52,7 @@ exports.index = function(req, res) {
 
 			case 'xml':
 				res.send('<locales>' + locales.map(function(locale) {
-					return '<locale>' + locale.title + '</locale>';
+					return '<locale>' + locale.locale + '</locale>';
 				}).join('') + '</locales>');
 				break;
 

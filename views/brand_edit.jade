@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	div#formcntnr
+		form(action='/brands/'+id, method='post')
+			label(for='name')
+			input(name='name', id='name', value=name)
+			input(type="hidden", name="_method", value="put")
+			input(type='submit', value='Update')

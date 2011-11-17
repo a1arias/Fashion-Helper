@@ -8,6 +8,11 @@ exports.routes = [
 		match: '/locales',
 		name: 'locales',
 		enabled: true
+	},
+	{
+		match: '/brands',
+		name: 'brands',
+		enabled: true
 	}
 ];
 

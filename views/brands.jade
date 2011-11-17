@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	p: a(href="/brands/new") New Brand
+	#brands_list
+		- if(data.length)
+			!= partial('brands_list', {collection: data, as: 'brand'})
+		- else
+			#no-results No brands found. Add them 
+				a(href="/brands/new") here

@@ -1,0 +1,6 @@
+div(class='brand #{ lastInCollection ? 'last': '' }') 
+	div.brandcntnr
+		a(href='/brands/'+brand.id+'/edit', title='Edit '+brand.brand) #{brand.brand}
+		form(method='post', action='/brands/'+brand.id)
+			input(type='hidden', name='_method', value='DELETE')
+			input(type='submit', value='Delete')
