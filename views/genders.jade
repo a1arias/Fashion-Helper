@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	p: a(href="/genders/new") New Gender
+	#genders_list
+		- if(data.length)
+			!= partial('genders_list', {collection: data, as: 'gender'})
+		- else
+			#no-results No genders found. Add them 
+				a(href="/genders/new") here

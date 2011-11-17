@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	p: a(href="/articles/new") New Brand
+	p: a(href="/articles/new") New Article
 	#articles_list
 		- if(data.length)
 			!= partial('articles_list', {collection: data, as: 'article'})

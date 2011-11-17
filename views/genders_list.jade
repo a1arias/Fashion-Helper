@@ -1,0 +1,6 @@
+div(class='gendeer #{ lastInCollection ? 'last': '' }') 
+	div.gendercntnr
+		a(href='/genders/'+gender.id+'/edit', title='Edit '+gender.gender) #{gender.gender}
+		form(method='post', action='/genders/'+gender.id)
+			input(type='hidden', name='_method', value='DELETE')
+			input(type='submit', value='Delete')

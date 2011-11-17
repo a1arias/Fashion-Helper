@@ -9,10 +9,10 @@ var dbconfig = require('../config.js').dbconfig,
 var sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.password);
 
 // Locale model
-var Articles = sequelize.import(__dirname + "/../models/Article");
+var Genders = sequelize.import(__dirname + "/../models/Gender");
 
 // Create the schema if necessary
-Articles.sync();
+Genders.sync();
 
 /**
  * Function returns an array of records
@@ -23,7 +23,7 @@ function recs2Array(recs){
 		(function(c){
 			var data = {
 				id: recs[c]['id'],
-				brand: recs[c]['article_type']
+				gender: recs[c]['gender']
 			};
 			collection.push(data);
 			// debugger;
@@ -33,12 +33,11 @@ function recs2Array(recs){
 };
 
 /**
- * GET /articles
+ * GET /genders
  */
 exports.index = function(req, res){
-	Articles.findAll().on('success', function(articles){
-
-		var recs = recs2Array(articles);
+	Genders.findAll().on('success', function(genders){
+		var recs = recs2Array(genders);
 
 		switch(req.format){
 			case 'json':
@@ -47,19 +46,19 @@ exports.index = function(req, res){
 				break;
 			
 			case 'xml':
-				res.send('<articles>' + articles.map(function(a){
-					return '<article>' + a.article_type + '</article>';
-				}).join('') + '</articles>');
+				res.send('<genders>' + genders.map(function(g){
+					return '<gender>' + g.gender + '</gender>';
+				}).join('') + '</genders>');
 				break;
 
 			default:
 				debugger;
-				res.render('articles', {
+				res.render('genders', {
 					locals: {
-						title: 'Articles',
-						data: articles
+						title: 'Genders',
+						data: genders
 					}
-				});	
+				});
 		}
 	}).on('failure', function(err){
 		debugger;
@@ -68,25 +67,24 @@ exports.index = function(req, res){
 };
 
 /**
- * GET /articles/new
+ * GET /genders/new
  */
 exports.new = function(req, res){
-	res.render('articles_new', {
+	res.render('genders_new', {
 		locals: {
-			title: 'New Article'
+			title: 'New Gender'
 		}
 	});
 };
 
-
 /**
- * POST /articles
+ * POST /genders
  *
  * TODO: require admin here
  */
 exports.create = function(req, res){
-	var post = Articles.build({
-		article_type: req.body.type
+	var post = Genders.build({
+		gender: req.body.gender
 	});
 	post.save().on('success', function(id){
 		res.json({
@@ -99,15 +97,15 @@ exports.create = function(req, res){
 };
 
 /**
- * GET /articles/:id/edit
+ * GET /genders/:id/edit
  */
 exports.edit = function(req, res){
-	var articleId = parseInt(req.params.article);
-	Articles.find(articleId).on('success', function(rec){
-		res.render('article_edit', {
+	var genderId = parseInt(req.params.gender);
+	Genders.find(genderId).on('success', function(rec){
+		res.render('gender_edit', {
 			id: rec.id,
-			title: 'Edit article: ' + rec.article_type,
-			type: rec.article_type
+			title: 'Edit gender: ' + rec.gender,
+			gender: rec.gender
 		});
 	}).on('failure', function(err){
 		debugger;
@@ -116,39 +114,39 @@ exports.edit = function(req, res){
 };
 
 /**
- * PUT /articles/:id
+ * PUT /genders/:id
  */
- exports.update = function(req, res){
- 	if(req.body.type){
- 		var articleId = parseInt(req.params.article);
- 		Articles.find(articleId).on('success', function(rec){
- 			rec.updateAttributes({
- 				article_type: req.body.type
- 			}).on('success', function(id){
- 				res.json({
-					success: true
-				}, 200);
- 			}).on('failure', function(err){
- 				debugger;
- 				throw new Error(err);
- 			});
- 		}).on('failure', function(err){
- 			debugger;
- 			throw new Error(err);
- 		});
- 	} else {
- 		throw new Error('Data not provided');
- 	}
- };
+exports.update = function(req, res){
+	if(req.body.gender){
+		var genderId = parseInt(req.params.gender);
+		Genders.find(genderId).on('success', function(rec){
+			rec.updateAttributes({
+				gender: req.body.gender
+			}).on('success', function(err){
+				res.json({
+				success: true,
+			}, 200);
+			}).on('failure', function(err){
+				debugger;
+				throw new Error(err);
+			});
+		}).on('failure', function(err){
+			debugger;
+			throw new Error(err);
+		});	
+	} else{
+		throw new Error('Data not provided');
+	}
+};
 
- /**
- * DELETE /articles/:id
+/**
+ * DELETE /genders/:id
  *
  * TODO: add authorization here
  */
 exports.destroy = function(req, res){
-	var articleId = parseInt(req.params.article);
-	Articles.find(articleId).on('success', function(rec){
+	var genderId = parseInt(req.params.gender);
+	Genders.find(genderId).on('success', function(rec){
 		rec.destroy().on('success', function(foo){
 			res.json({
 				success: true,

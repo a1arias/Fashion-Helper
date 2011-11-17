@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	div#formcntnr
+		form(action='/genders/'+id, method='post')
+			label(for='gender')
+			input(name='gender', id='gender', value=gender)
+			input(type="hidden", name="_method", value="put")
+			input(type='submit', value='Update')
