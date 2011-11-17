@@ -28,7 +28,7 @@ function recs2Array(recs){
 				locale: recs[c]['locale']
 			};
 			collection.push(data);
-			debugger;
+			// debugger;
 		})(c);
 	};
 	return collection;
@@ -46,7 +46,7 @@ exports.index = function(req, res) {
 		switch (req.format) {
 
 			case 'json':
-				debugger;
+				// debugger;
 				res.json(recs);
 				break;
 

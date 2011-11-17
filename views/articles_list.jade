@@ -1,0 +1,6 @@
+div(class='article #{ lastInCollection ? 'last': '' }') 
+	div.articlecntnr
+		a(href='/articles/'+article.id+'/edit', title='Edit '+article.article_type) #{article.article_type}
+		form(method='post', action='/articles/'+article.id)
+			input(type='hidden', name='_method', value='DELETE')
+			input(type='submit', value='Delete')

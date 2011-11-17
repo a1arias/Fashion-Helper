@@ -13,6 +13,11 @@ exports.routes = [
 		match: '/brands',
 		name: 'brands',
 		enabled: true
+	},
+	{
+		match: '/articles',
+		name: 'articles',
+		enabled: true
 	}
 ];
 

@@ -127,7 +127,7 @@ exports.update = function(req, res){
  * DELETE /brands/:id
  */
 exports.destroy = function(req, res){
-	var brandId = parseInt(req.params.locale);
+	var brandId = parseInt(req.params.brand);
 	Brands.find(brandId).on('success', function(rec){
 		rec.destroy().on('success', function(foo){
 			res.json({

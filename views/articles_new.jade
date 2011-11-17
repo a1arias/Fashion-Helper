@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div#formcntnr
+		form(action='/articles', method='POST')
+			label(for='type')
+			input(name='type', id='type')
+			input(type='submit', value='add')
