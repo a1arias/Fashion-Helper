@@ -17,17 +17,37 @@ var Locales = sequelize.import(__dirname + "/../models/Locale");
 Locales.sync();
 
 /**
+ * Function returns an array of 
+ */
+function recs2Array(recs){
+	for(var c = 0; c < recs.length; c++){
+		var collection = [];
+		(function(c){
+			var data = {
+				id: recs[c]['id'],
+				locale: recs[c]['locale']
+			};
+			collection.push(data);
+			debugger;
+		})(c);
+	};
+	return collection;
+};
+
+/**
  * GET /locales
  */
 exports.index = function(req, res) {
 
 	var locales = Locales.findAll().on('success', function(locales){
 		
+		var recs = recs2Array(locales);
+
 		switch (req.format) {
 
 			case 'json':
-				// debugger;
-				res.json(locales);
+				debugger;
+				res.json(recs);
 				break;
 
 			case 'xml':
@@ -37,7 +57,7 @@ exports.index = function(req, res) {
 				break;
 
 			default:
-				debugger;
+				// debugger;
 				res.render('locales', {
 					locals: {
 						title: 'Locales',
@@ -46,7 +66,7 @@ exports.index = function(req, res) {
 				});
 		}
 	}).on('failure', function(error){
-		debugger;
+		// debugger;
 		throw new Error(err);
 	});
 };
@@ -114,7 +134,7 @@ exports.update = function(req, res){
 			loc.updateAttributes({
 				locale: req.body.name
 			}).on('success', function(id){
-				debugger;
+				// debugger;
 				res.json({
 					success: true,
 					// locale: {
@@ -122,11 +142,11 @@ exports.update = function(req, res){
 					// }
 				}, 200);
 			}).on('failure', function(error){
-				debugger;
+				// debugger;
 				throw new Error(error);
 			});
 		}).on('failure', function(error){
-			debugger;
+			// debugger;
 			throw new Error(error);
 		});
 	} else {
@@ -145,11 +165,11 @@ exports.destroy = function(req, res){
 				success: true,
 			}, 200);
 		}).on('failure', function(error){
-			debugger;
+			// debugger;
 			throw new Error(error);
 		});
 	}).on('failure', function(error){
-		debugger;
+		// debugger;
 		throw new Error(error);
 	});
 };
