@@ -1,0 +1,16 @@
+extends layout
+
+block css
+	link(rel='stylesheet', href='/ext-ui/ext-4.0.7-gpl/resources/css/ext-all.css')
+	link(rel='stylesheet', href='/stylesheets/style.css')
+
+
+block scripts
+	script(type="text/javascript", src='/ext-ui/ext-4.0.7-gpl/ext-debug.js')
+	script(type="text/javascript", src='/ext-ui/ext-4.0.7-gpl/bootstrap.js')
+
+block top
+	
+block content
+	//#extapp
+	script(type="text/javascript", src="/ext-ui/app/Application.js")

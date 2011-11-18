@@ -78,10 +78,9 @@ routes.forEach(function(e) {
  * Static Routes
  */
 
-// app.get('/poo', function(req, res){
-//  debugger;
-//  res.render('index', { title: 'Express' });
-// });
+app.get('/portal', function(req, res){
+    res.render('portal', { title: 'Portal' });
+});
 
 if(!module.parent){
     app.listen(3000);

@@ -1,4 +1,4 @@
-div(class='gendeer #{ lastInCollection ? 'last': '' }') 
+div(class='gender #{ lastInCollection ? 'last': '' }') 
 	div.gendercntnr
 		a(href='/genders/'+gender.id+'/edit', title='Edit '+gender.gender) #{gender.gender}
 		form(method='post', action='/genders/'+gender.id)
