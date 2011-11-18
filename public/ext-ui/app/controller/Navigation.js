@@ -2,21 +2,31 @@ Ext.define('FashionHelper.controller.Navigation', {
 	extend: 'Ext.app.Controller',
 
 	refs : [{
-		ref: 'navigationView',
-		selector: 'navigation'
-	}, {
-		ref: 'portalView',
-		selector: 'portal'
-	}, {
-		ref: 'brandView',
-		selector: 'brand-comp'
-	}, {
-		ref: 'homeView',
-		selector: 'home'
-	}],
+                    ref: 'navigationView',
+                    selector: 'navigation'
+                }, {
+                        ref: 'portalView',
+                        selector: 'portal'
+                }, {
+                        ref: 'brandView',
+                        selector: 'brand-comp'
+                }, {
+                        ref: 'homeView',
+                        selector: 'home'
+                },
+                {
+                    ref: 'table',
+                    selector: '#globalTable'
+                },
+                {
+                    ref: 'grid',
+                    selector: '#globalTable localeList'
+                }
+        ],
 
 	init: function(application){
 		console.log('controller init');
+                var me = this;
 		this.control({
 			'navigation': {
 				'golocale': this.goLocale,
@@ -31,8 +41,12 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goLocale: function(link){
-		console.log('locale clicked');
-		console.dir(link);
+            //console.log(link);
+            var me = this;
+            console.log(me);
+            me.application.getController('Navigation').cleanUpTable();
+            
+            me.application.getController('Locale').LocaleStart();
 	},
 
 	goBrand: function(link){
@@ -56,5 +70,13 @@ Ext.define('FashionHelper.controller.Navigation', {
 	
 	goProfile: function(link){
 		console.log('profile clicked');
-	}
+	},
+        cleanUpTable: function()
+        {
+            var panels = this.getTable().down('panel');
+            if(panels)
+            {
+                panels.hide();
+            }
+        }
 });
