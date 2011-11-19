@@ -33,6 +33,7 @@ Profiles.sync();
  * @api public
  */
 function mapCollection(recs, fields){
+	// debugger;
 	return recs.map(function(row){
 		var result = {};
 		fields.forEach(function(field){
@@ -133,6 +134,62 @@ exports.create = function(req, res){
 		res.json({
 			success: true
 		}, 200);
+	}).on('failure', function(err){
+		debugger;
+		throw new Error(err);
+	});
+};
+
+/**
+ * GET /profiles/:id
+ */
+exports.show = function(req, res){
+	var profileId = parseInt(req.params.profile);
+	debugger;
+		
+	Profiles.find(profileId).on('success', function(profile){
+		switch(req.format){
+			case 'json':
+				// debugger;
+				if(typeof profile === 'undefined'){
+					res.json({
+						success: false,
+						msg: 'No matching records found'
+					});
+				} else {
+					var rec = {
+						id: profile.id,
+						name: profile.name,
+						gender_id: profile.gender_id,
+						age: profile.age,
+						weight: profile.weight,
+						height: profile.height,
+						chest: profile.chest,
+						waist: profile.waist,
+						seat: profile.seat,
+						inside_leg: profile.inside_leg,
+						shoulder: profile.shoulder,
+						arm: profile.arm
+					};
+					res.json(rec);	
+				}
+				break;
+
+			case 'xml':
+				res.send('<profile>' + profile.name + '</profile>');
+				break;
+
+			default:
+				// debugger;
+				res.render('profiles_show', {
+					locals: {
+						title: 'Display Profile',
+						data: {
+							'profile': profile
+						}
+					}
+				});
+		};
 	}).on('failure', function(err){
 		debugger;
 		throw new Error(err);
