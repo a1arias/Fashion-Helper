@@ -25,7 +25,7 @@ var Genders = sequelize.import(__dirname + "/../models/Gender");
 var Sizes = sequelize.import(__dirname + "/../models/Size");
 
 // Define associations
-Locales.hasMany(Sizes, {foreignKey: 'locale_id'});
+Locales.hasOne(Sizes, {foreignKey: 'locale_id'});
 
 Brands.hasOne(Sizes, {foreignKey: 'brand_id'});
 
@@ -67,7 +67,7 @@ exports.index = function(req, res){
 		switch(req.format){
 			case 'json':
 				// debugger;
-				var sizes = mapCollection(sizes, [
+				var recs = mapCollection(sizes, [
 					'id',
 					'brand_id',
 					'locale_id',
@@ -162,7 +162,7 @@ exports.new = function(req, res){
 };
 
 /**
- * POST /genders
+ * POST /sizes
  *
  * TODO: require admin here
  */

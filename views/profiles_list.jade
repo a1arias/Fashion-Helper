@@ -1,0 +1,6 @@
+div(class='profiles #{ lastInCollection ? 'last': '' }') 
+	div.profilecntnr
+		a(href='/profiles/'+p.id+'/edit', title='Edit '+p.name) #{p.name}
+		form(method='post', action='/profiles/'+p.id)
+			input(type='hidden', name='_method', value='DELETE')
+			input(type='submit', value='Delete')

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	p: a(href="/profiles/new") New Profile
+	#profiles_list
+		- if(data.profiles.length)
+			!= partial('profiles_list', {collection: data.profiles, as: 'p'})
+		- else
+			#no-results No profiles found. Add them 
+				a(href="/profiles/new") here

@@ -1,0 +1,30 @@
+extends layout
+
+block content
+	div#formcntnr
+		form(action='/profiles', method='POST')
+			label(for='name') Name: 
+			input(name='name', id='name')
+			select(name='gender')
+				each g, i in data.genders
+					option(value=g.id) #{g.gender}
+			label(for='age') Age: 
+			input(type='text', name='age')
+			label(for='weight') weight: 
+			input(type='text', name='weight', id='weight')
+			label(for='waist') waist: 
+			input(type='text', name='waist', id='waist')
+			label(for='seat') seat: 
+			input(type='text', name='seat', id='seat')
+			label(for='height') height: 
+			input(type='text', name='height', id='height')
+			label(for='chest') chest: 
+			input(type='text', name='chest', id='chest')
+			label(for='inside_leg') Inside leg:
+			input(type='text', name='inside_leg', id='inside_leg')
+			label(for='shoulder') shoulder: 
+			input(type='text', name='shoulder', id='shoulder')
+			label(for='arm') arm: 
+			input(type='text', name='arm', id='arm')
+			input(type='button', value='Cancel')
+			input(type='submit', value='New')
