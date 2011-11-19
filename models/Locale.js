@@ -18,5 +18,7 @@ module.exports = function(sequelize, DataTypes){
 			type: DataTypes.BOOLEAN,
 			defaultValue: 1
 		}
+	}, {
+		underscored: true
 	});
 };

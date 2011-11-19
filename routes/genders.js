@@ -15,21 +15,24 @@ var Genders = sequelize.import(__dirname + "/../models/Gender");
 Genders.sync();
 
 /**
- * Function returns an array of records
+ * takes an Array of records
+ * and and Array of fields and returns 
+ * a collection.
+ *
+ * 
+ * @param {Array} recs
+ * @param {Array} fields
+ * @return {Array}
+ * @api public
  */
-function recs2Array(recs){
-	for(var c = 0; c < recs.length; c++){
-		var collection = [];
-		(function(c){
-			var data = {
-				id: recs[c]['id'],
-				gender: recs[c]['gender']
-			};
-			collection.push(data);
-			// debugger;
-		})(c);
-	};
-	return collection;
+function mapCollection(recs, fields){
+	return recs.map(function(row){
+		var result = {};
+		fields.forEach(function(field){
+			result[field] = row[field]
+		});
+		return result;
+	});
 };
 
 /**
@@ -37,11 +40,11 @@ function recs2Array(recs){
  */
 exports.index = function(req, res){
 	Genders.findAll().on('success', function(genders){
-		var recs = recs2Array(genders);
 
 		switch(req.format){
 			case 'json':
 				// debugger;
+				var recs = mapCollection(genders, ['id', 'gender']);
 				res.json(recs);
 				break;
 			
@@ -52,7 +55,7 @@ exports.index = function(req, res){
 				break;
 
 			default:
-				debugger;
+				// debugger;
 				res.render('genders', {
 					locals: {
 						title: 'Genders',

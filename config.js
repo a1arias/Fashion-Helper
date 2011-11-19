@@ -23,6 +23,11 @@ exports.routes = [
 		match: '/genders',
 		name: 'genders',
 		enabled: true
+	},
+	{
+		match: '/sizes',
+		name: 'sizes',
+		enabled: true
 	}
 ];
 

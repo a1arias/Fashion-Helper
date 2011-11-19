@@ -53,7 +53,7 @@ exports.index = function(req, res){
 				break;
 
 			default:
-				debugger;
+				// debugger;
 				res.render('articles', {
 					locals: {
 						title: 'Articles',

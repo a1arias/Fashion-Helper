@@ -15,17 +15,38 @@ var Brands = sequelize.import(__dirname + "/../models/Brand");
 Brands.sync();
 
 /**
+ * takes an Array of records
+ * and and Array of fields and returns 
+ * a collection.
+ *
+ * 
+ * @param {Array} recs
+ * @param {Array} fields
+ * @return {Array}
+ * @api public
+ */
+function mapCollection(recs, fields){
+	return recs.map(function(row){
+		var result = {};
+		fields.forEach(function(field){
+			result[field] = row[field]
+		});
+		return result;
+	});
+};
+
+/**
  * GET /brands
  */
 exports.index = function(req, res){
 	
 	Brands.findAll().on('success', function(brands){
 		
-		// TODO: recs2Array here
+		var recs = mapCollection(brands, ['id', 'brand'])
 
 		switch(req.format){
 			case 'json':
-				debugger;
+				// debugger;
 				res.json(recs);
 				break;
 			
@@ -36,7 +57,7 @@ exports.index = function(req, res){
 				break;
 
 			default:
-				debugger;
+				// debugger;
 				res.render('brands', {
 					locals: {
 						title: 'Brands',

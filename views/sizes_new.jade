@@ -1,0 +1,58 @@
+extends layout
+
+block content
+	div#formcntnr
+		form(action='/sizes', method='POST')
+			select(name='brand')
+				each b, i in data.brands
+					option(value=b.id) #{b.brand}
+			select(name='locale')
+				each l, i in data.locales
+					option(value=l.id) #{l.locale}
+			select(name='gender')
+				each g, i in data.genders
+					option(value=g.id) #{g.gender}
+			select(name='article')
+				each a, i in data.articles
+					option(value=a.id) #{a.article_type}
+			label(for='size') Size: 
+			input(name='size', id='size')
+			label(for='age_min') Age min
+			input(type='text', name='age_min')
+			label(for='age_max') Age max
+			input(type='text', name='age_max')
+			label(for='weight_min') Weight min
+			input(type='text', name='weight_min')
+			label(for='weight_max') Weight max
+			input(type='text', name='weight_max')
+			label(for='chest_min') Chest min
+			input(type='text', name='chest_min')
+			label(for='chest_max') Chest max
+			input(type='text', name='chest_max')
+			label(for='waist_min') Waist min
+			input(type='text', name='waist_max')
+			label(for='waist_max') Waist max
+			input(type='text', name='waist_max')
+			label(for='seat_min') Seat min
+			input(type='text', name='seat_min')
+			label(for='seat_max') Seat max
+			input(type='text', name='seat_max')
+			label(for='inside_leg_min') Ins. Leg min
+			input(type='text', name='inside_leg_min')
+			label(for='inside_leg_max') Ins. Leg max
+			input(type='text', name='shoulder_min')
+			label(for='shoulder_min') Shoulder min
+			input(type='text', name='shoulder_min')
+			label(for='shoulder_max') Shoulder max
+			input(type='text', name='shoulder_max')
+			label(for='arm_min') Arm min
+			input(type='text', name='arm_min')
+			label(for='arm_max') Arm max
+			input(type='text', name='arm_max')
+			label(for='height_min') Height min
+			input(type='text', name='height_min')
+			label(for='height_max') Height max
+			input(type='text', name='height_max')
+			label(for='heal_toe') Heal2Toe
+			input(type='text', name='heal_toe')
+			input(type='submit', value='New')

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	p: a(href="/sizes/new") New Size
+	#sizes_list
+		- if(data.sizes.length)
+			!= partial('sizes_list', {collection: data.sizes, as: 's'})
+		- else
+			#no-results No sizes found. Add them 
+				a(href="/sizes/new") here
