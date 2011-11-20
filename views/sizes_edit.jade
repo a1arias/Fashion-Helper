@@ -1,0 +1,60 @@
+extends layout
+
+block content
+	div#formcntnr
+		form(action='/sizes/'+data.s.id, method='POST')
+			input(type='hidden', name='id', value=data.s.id)
+			select(name='brand')
+				each b, i in data.b
+					option(value=b.id) #{b.brand}
+			select(name='locale')
+				each l, i in data.l
+					option(value=l.id) #{l.locale}
+			select(name='gender')
+				each g, i in data.g
+					option(value=g.id) #{g.gender}
+			select(name='article')
+				each a, i in data.a
+					option(value=a.id) #{a.article_type}
+			label(for='size') Size: 
+			input(type='text', name='size', id='size', value=data.s.size)
+			label(for='age_min') Age min
+			input(type='text', name='age_min', id='age_min', value=data.s.age_min)
+			label(for='age_max') Age max
+			input(type='text', name='age_max', id='age_max', value=data.s.age_max)
+			label(for='weight_min') Weight min
+			input(type='text', name='weight_min', id='weight_min', value=data.s.weight_min)
+			label(for='weight_max') Weight max
+			input(type='text', name='weight_max', id='weight_max', value=data.s.weight_max)
+			label(for='chest_min') Chest min
+			input(type='text', name='chest_min', id='chest_min', value=data.s.chest_min)
+			label(for='chest_max') Chest max
+			input(type='text', name='chest_max', id='chest_max', value=data.s.chest_max)
+			label(for='waist_min') Waist min
+			input(type='text', name='waist_min', id='waist_min', value=data.s.waist_min)
+			label(for='waist_max') Waist max
+			input(type='text', name='waist_max', id='waist_max', value=data.s.waist_max)
+			label(for='seat_min') Seat min
+			input(type='text', name='seat_min', id='seat_min', value=data.s.seat_min)
+			label(for='seat_max') Seat max
+			input(type='text', name='seat_max', id='seat_max', value=data.s.seat_max)
+			label(for='inside_leg_min') Ins. Leg min
+			input(type='text', name='inside_leg_min', id='inside_leg_min', value=data.s.inside_leg_min)
+			label(for='inside_leg_max') Ins. Leg max
+			input(type='text', name='inside_leg_max', id='inside_leg_max', value=data.s.inside_leg_max)
+			label(for='shoulder_min') Shoulder min
+			input(type='text', name='shoulder_min', id='shoulder_min', value=data.s.shoulder_min)
+			label(for='shoulder_max') Shoulder max
+			input(type='text', name='shoulder_max', id='shoulder_max', value=data.s.shoulder_max)
+			label(for='arm_min') Arm min
+			input(type='text', name='arm_min', id='arm_min', value=data.s.arm_min)
+			label(for='arm_max') Arm max
+			input(type='text', name='arm_max', id='arm_max', value=data.s.arm_max)
+			label(for='height_min') Height min
+			input(type='text', name='height_min', id='height_min', value=data.s.height_min)
+			label(for='height_max') Height max
+			input(type='text', name='height_max', id='height_max', value=data.s.height_max)
+			label(for='heal_toe') Heal2Toe
+			input(type='text', name='heal_toe', id='heal_toe', value=data.s.heal_toe)
+			input(type='hidden', name='_method', value='PUT')
+			input(type='submit', value='New')

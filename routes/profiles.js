@@ -145,18 +145,20 @@ exports.create = function(req, res){
  */
 exports.show = function(req, res){
 	var profileId = parseInt(req.params.profile);
-	debugger;
 		
 	Profiles.find(profileId).on('success', function(profile){
 		switch(req.format){
 			case 'json':
-				// debugger;
-				if(typeof profile === 'undefined'){
+				debugger;
+				// TODO: handle error in session middleware instead
+				if(!profile){
+					debugger;
 					res.json({
 						success: false,
 						msg: 'No matching records found'
-					});
+					}, 404);
 				} else {
+					debugger;
 					var rec = {
 						id: profile.id,
 						name: profile.name,
@@ -181,14 +183,25 @@ exports.show = function(req, res){
 
 			default:
 				// debugger;
-				res.render('profiles_show', {
-					locals: {
-						title: 'Display Profile',
-						data: {
-							'profile': profile
+				// TODO: handle error in session middleware instead
+				if(!profile){
+					res.render('404', {
+						locals: {
+				            title: '404 - Not Found',
+				            desc: 'The requested resource could not be found'
+				        },
+				        status: 404
+					});
+				} else {
+					res.render('profiles_show', {
+						locals: {
+							title: 'Display Profile',
+							data: {
+								'profile': profile
+							}
 						}
-					}
-				});
+					});
+				}
 		};
 	}).on('failure', function(err){
 		debugger;
@@ -218,6 +231,37 @@ exports.edit = function(req, res){
 			debugger;
 			throw new Error(err);
 		});
+	}).on('failure', function(err){
+		debugger;
+		throw new Error(err);
+	});
+};
+
+/**
+ * PUT /profiles/:id
+ */
+exports.update = function(req, res){
+	var profileId = parseInt(req.params.profile);
+	Profiles.find(profileId).on('success', function(profile){
+		profile.updateAttributes({
+				name: req.body.name,
+				age: req.body.age,
+				weight: req.body.weight,
+				height: req.body.height,
+				waist: req.body.waist,
+				seat: req.body.seat,
+				inside_leg: req.body.inside_leg,
+				shoulder: req.body.shoulder,
+				arm: req.body.arm
+			}).on('success', function(id){
+				// debugger;
+				res.json({
+					success: true,
+				}, 200);
+			}).on('failure', function(error){
+				// debugger;
+				throw new Error(error);
+			});
 	}).on('failure', function(err){
 		debugger;
 		throw new Error(err);

@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div.profilecntnr
+			a(href='/sizes/'+data.size.id+'/edit', title='Edit '+data.size.name) #{data.size.size}
+			form(method='post', action='/sizes/'+data.size.id)
+				input(type='hidden', name='_method', value='DELETE')
+				input(type='submit', value='Delete')
