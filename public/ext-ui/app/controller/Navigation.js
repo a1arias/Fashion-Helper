@@ -47,6 +47,8 @@ Ext.define('FashionHelper.controller.Navigation', {
             me.application.getController('Navigation').cleanUpTable();
             
             me.application.getController('Locale').LocaleStart();
+            
+            this.getTable().show();
 	},
 
 	goBrand: function(link){

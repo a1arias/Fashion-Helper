@@ -14,7 +14,7 @@ Ext.define('FashionHelper.view.Navigation', {
 		this.layout = {
 			type: 'vbox',
 			align: 'center',
-			pack: 'center',
+			pack: 'center'
 		};
 
 		this.listeners = {
