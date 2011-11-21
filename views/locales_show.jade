@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div.localecntnr
+			a(href='/locales/'+data.locale.id+'/edit', title='Edit '+data.locale.locale) #{data.locale.locale}
+			form(method='post', action='/profiles/'+data.locale.id)
+				input(type='hidden', name='_method', value='DELETE')
+				input(type='submit', value='Delete')

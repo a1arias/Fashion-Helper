@@ -187,10 +187,10 @@ exports.show = function(req, res){
 				if(!profile){
 					res.render('404', {
 						locals: {
-				            title: '404 - Not Found',
-				            desc: 'The requested resource could not be found'
-				        },
-				        status: 404
+							title: '404 - Not Found',
+							desc: 'The requested resource could not be found'
+						},
+						status: 404
 					});
 				} else {
 					res.render('profiles_show', {

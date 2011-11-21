@@ -65,7 +65,7 @@ exports.index = function(req, res) {
 					}
 				});
 		}
-	}).on('failure', function(error){
+	}).on('failure', function(err){
 		// debugger;
 		throw new Error(err);
 	});
@@ -101,6 +101,59 @@ exports.create = function(req, res){
 	}).on('failure', function(error){
 		// debugger;
 		throw new Error(error);
+	});
+};
+
+/**
+ * GET /locales/:id
+ */
+exports.show = function(req, res){
+	var localeId = parseInt(req.params.ig);
+
+	Locales.find(localeId).on('success', function(locale){
+		switch(req.format){
+			case 'json':
+				if(!locale){
+					res.json({
+						success: false,
+						msg: 'The requested resource could not be found'
+					}, 404);
+				} else {
+					var rec = {
+						'id': locale.id,
+						'locale': locale.locale
+					};
+					res.json(rec);
+				}
+				break;
+
+			case 'xml':
+				res.send('<profile>' + profile.name + '</profile>');
+				break;
+
+			default:
+				if(!locale){
+					res.rener('404', {
+						locals: {
+							title: '404 - Not Found',
+							desc: 'The requested resource could not be found'
+						},
+					status: 404
+					});
+				} else {
+					res.render('locales_show', {
+						locals: {
+							title: 'Display Locale',
+							data: {
+								'locale': locale
+							}
+						}
+					});
+				}
+		};
+	}).on('failure', function(err){
+		debugger;
+		throw new Error(err);
 	});
 };
 
