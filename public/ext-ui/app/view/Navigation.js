@@ -1,6 +1,6 @@
 Ext.define('FashionHelper.view.Navigation', {
 	extend: 'Ext.Container',
-	alias: 'widget.navigation',
+	alias: 'widget.navigationcomp',
 	height: 70,
 	autoRender: true,
 	autoShow: true,
@@ -46,6 +46,7 @@ Ext.define('FashionHelper.view.Navigation', {
 			}, {
 				xtype: 'component',
 				flex: 2,
+				id: 'gohome',
 				autoEl: {
 					tag: 'a',
 					href: '/',

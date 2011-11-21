@@ -1,34 +1,32 @@
 Ext.define('FashionHelper.controller.Navigation', {
 	extend: 'Ext.app.Controller',
 
-	refs : [{
-                    ref: 'navigationView',
-                    selector: 'navigation'
-                }, {
-                        ref: 'portalView',
-                        selector: 'portal'
-                }, {
-                        ref: 'brandView',
-                        selector: 'brand-comp'
-                }, {
-                        ref: 'homeView',
-                        selector: 'home'
-                },
-                {
-                    ref: 'table',
-                    selector: '#globalTable'
-                },
-                {
-                    ref: 'grid',
-                    selector: '#globalTable localeList'
-                }
-        ],
+	refs: [{
+		ref: 'navigationView',
+		selector: 'navigationcomp'
+	}, {
+		ref: 'portalView',
+		selector: 'portalcomp'
+	}, {
+		ref: 'brandView',
+		selector: 'brandcomp'
+	}, {
+		ref: 'homeView',
+		selector: 'homecomp'
+	}, {
+		ref: 'table',
+		selector: '#globalTable'
+	}, {
+		ref: 'grid',
+		selector: '#globalTable localeList'
+	}],
 
 	init: function(application){
 		console.log('controller init');
-                var me = this;
+		//var me = this;
 		this.control({
-			'navigation': {
+			'navigationcomp': {
+				'gohome':this.goHome,
 				'golocale': this.goLocale,
 				'gobrand': this.goBrand,
 				'gosize': this.goSize,
@@ -38,6 +36,15 @@ Ext.define('FashionHelper.controller.Navigation', {
 				scope: this
 			}
 		});
+	},
+
+	goHome: function(link){
+		console.log('home clicked');
+		// var homeview = this.getHomeView();
+		var homeview = Ext.widget('homecomp');
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(homeview);
 	},
 
 	goLocale: function(link){
@@ -52,10 +59,12 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goBrand: function(link){
-		var portal = this.getPortalView();
-		var brandView = this.getBrandView();
-		portal.removeAll(true);
-		portal.add(brandView);
+		console.log('brand clicked');
+		var brandView = Ext.widget('brandcomp');
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(brandView);
+		// portal.doLayout();
 	},
 
 	goSize: function(link){
@@ -73,12 +82,10 @@ Ext.define('FashionHelper.controller.Navigation', {
 	goProfile: function(link){
 		console.log('profile clicked');
 	},
-        cleanUpTable: function()
-        {
-            var panels = this.getTable().down('panel');
-            if(panels)
-            {
-                panels.hide();
-            }
-        }
+	cleanUpTable: function(){
+		var panels = this.getTable().down('panel');
+		if(panels){
+			panels.hide();
+		}
+	}
 });
