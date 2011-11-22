@@ -9,7 +9,7 @@ Ext.define('FashionHelper.view.Portal', {
 
 	requires: [,
 		'FashionHelper.view.Home',
-		'FashionHelper.view.Brand'
+		'FashionHelper.view.Brands'
 	],
 
 	items: [{

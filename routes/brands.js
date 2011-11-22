@@ -42,12 +42,15 @@ exports.index = function(req, res){
 	
 	Brands.findAll().on('success', function(brands){
 		
-		var recs = mapCollection(brands, ['id', 'brand'])
+		var recs = mapCollection(brands, ['id', 'brand', 'visible'])
 
 		switch(req.format){
 			case 'json':
 				// debugger;
-				res.json(recs);
+				res.json({
+					success: true,
+					'data': recs
+					}, 200);
 				break;
 			
 			case 'xml':

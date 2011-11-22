@@ -60,6 +60,7 @@ Ext.define('FashionHelper.controller.Navigation', {
 		console.log('brand clicked');
 		var brandView = Ext.widget('brandcomp');
 		var portalview = this.getPortalView();
+		// window.location.hash = '!/brands'
 		portalview.removeAll();
 		portalview.add(brandView);
 		// portal.doLayout();
