@@ -48,12 +48,14 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goLocale: function(link){
-		//console.log(link);
-		var me = this;
-		console.log(me);
-		me.application.getController('Navigation').cleanUpTable();
-		
-		me.application.getController('Locale').LocaleStart();
+            //console.log(link);
+            var me = this;
+            console.log(me);
+            me.application.getController('Navigation').cleanUpTable();
+            
+            me.application.getController('Locale').LocaleStart();
+            
+            this.getTable().show();
 	},
 
 	goBrand: function(link){
