@@ -31,9 +31,11 @@ Ext.define('FashionHelper.controller.Locale', {
 
 	},
         LocaleStart: function(){
+
             this.getPortal().hide();
-            this.getList().show();
             this.getTable().show();
+            this.getForm().show();
+            
             if(this.application.hasData('isLocaleLoaded')==false)
             {
                 this.application.setData('isLocaleLoaded', true);
@@ -61,7 +63,7 @@ Ext.define('FashionHelper.controller.Locale', {
             }else
             {
                 this.getList().show();    
-                this.getForm().show();    
+                this.getForm().show();
             }
         },
         editItem: function(grid, record){

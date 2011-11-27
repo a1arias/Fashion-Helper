@@ -2,7 +2,12 @@ Ext.define('FashionHelper.view.Viewport', {
 	extend: 'Ext.Panel',
 	alias: 'widget.viewportcomp',
 	layout: 'anchor',
-
+        id: "viewport",        
+        layout: {
+            type: 'vbox',
+            align: 'center'
+        },
+        height: 500,
 	requires: [
 		'FashionHelper.view.Navigation',
 		'FashionHelper.view.Portal'
@@ -35,20 +40,26 @@ Ext.define('FashionHelper.view.Viewport', {
 			}]
 			
 		},
-		{
-			id: 'globalTable',
-			xtype: 'container',
-			title: 'Default Table',
-			width: '100%',
-			flex: 2
-		},
-		{
-			id: 'globalForm',
-			xtype: 'container',
-			title: 'Default Form',
-			width: '100%',
-			flex: 1
-		},
+                {
+                    autoRender: true,
+                    autoShow: false,
+                    autoDestroy: false,
+                    id: 'globalTable',
+                    xtype: 'container',
+                    title: 'Default Table',
+                    width: '100%',
+                    height: 200
+                },
+                {
+                    autoRender: true,
+                    autoShow: false,
+                    autoDestroy: false,
+                    id: 'globalForm',
+                    xtype: 'container',
+                    title: 'Default Form',
+                    width: '100%',
+                    height: 100
+                }
 	],
 
 	initComponent: function() {

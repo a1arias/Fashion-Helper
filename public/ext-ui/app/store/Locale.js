@@ -5,10 +5,10 @@ Ext.define('FashionHelper.store.Locale', {
     proxy: {
         type: 'rest',
         api: {
-            read: 'data/locale/list.json',
-            update: 'data/locale/update.json',
-            create: 'data/locale/create.json',
-            destroy: 'data/locale/delete.json'
+            read: 'locales.json',
+            update: 'locales.json',
+            create: 'locales/new',
+            destroy: 'locales.json'
         },
         reader: {
             type: 'json',
