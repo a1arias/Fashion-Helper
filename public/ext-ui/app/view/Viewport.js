@@ -2,12 +2,12 @@ Ext.define('FashionHelper.view.Viewport', {
 	extend: 'Ext.Panel',
 	alias: 'widget.viewportcomp',
 	layout: 'anchor',
-        id: "viewport",        
-        layout: {
-            type: 'vbox',
-            align: 'center'
-        },
-        height: 500,
+        // id: "viewport",        
+        // layout: {
+        //     type: 'vbox',
+        //     align: 'center'
+        // },
+        // height: 500,
 	requires: [
 		'FashionHelper.view.Navigation',
 		'FashionHelper.view.Portal'

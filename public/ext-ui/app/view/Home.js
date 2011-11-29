@@ -23,7 +23,7 @@ Ext.define('FashionHelper.view.Home', {
 	},
 
 	onRender: function(){
-		this.autoEl = Ext.apply({}, this.initialConfig, this.autoEl);
+		// this.autoEl = Ext.apply({}, this.initialConfig, this.autoEl);
 		this.callParent(arguments);
 		this.el.on('load', this.onLoad, this);
 	},

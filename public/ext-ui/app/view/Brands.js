@@ -1,51 +1,35 @@
 Ext.define('FashionHelper.view.Brands', {
-	extend: 'Ext.grid.Panel',
+	extend: 'Ext.form.Panel',
 	alias: 'widget.brandcomp',
-	title: 'Brands',
-	autoRender: true,
-	autoShow: true,
-	autoDestroy: true,
-	width: 500,
-	height: 400,
-
-	selType: 'rowmodel',
-	rowEditor: Ext.create('Ext.grid.plugin.RowEditing', {
-		clicksToEdit: 2
-	}),
-
-	store: ['Brands'],
-
-	columns: [{
-		header: 'Id',
-		dataIndex: 'id',
-		sortable: true,
-		flex: 1
+	id: 'brands-gridform',
+	frame: true,
+	
+	items: [{
+		xtype: 'gridpanel',
+		store: Ext.data.StoreManager.lookup('brandsStore'),
+		columns: [{
+			text: 'Id',
+			sortable: true,
+			dataIndex: 'id',
+			flex: 1
+		}, {
+			text: 'Brand',
+			sortable: true,
+			dataIndex: 'brand',
+			flex: 4
+		}]
 	}, {
-		header: 'Brand',
-		dataIndex: 'brand',
-		editor: {
-			xtype: 'textfield',
-			allowBlank: false
+		xtype: 'fieldset',
+		title: 'Brand Details',
+		defaults: {
+			width: 240,
+			labelWidth: 90
 		},
-		flex: 4
-	}, {
-		header: 'Visible',
-		dataIndex: 'visible',
-		editor: {
-			xtype: 'checkbox',
-		},
-		flex: 1
-	}],
+		defaultType: 'textfield',
+		items: [{
+			fieldLabel: 'Brand',
+			name: 'brand'
+		}]
+	}]
 
-	onRender: function(){
-		// this.store = Ext.apply({}, this.store);
-		// this.columns = Ext.apply({}, this.columns);
-		this.plugins = [this.rowEditor];
-		this.callParent(arguments);
-		this.el.on('load', this.onLoad, this);
-	},
-
-	onLoad: function(){
-		this.fireEvent('load', this);
-	},
 });

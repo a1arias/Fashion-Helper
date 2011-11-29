@@ -225,7 +225,7 @@ exports.update = function(req, res){
  * DELETE /locales/:id
  */
 exports.destroy = function(req, res){
-	debugger;
+	// debugger;
 	var localeId = parseInt(req.params.locale);
 	Locales.find(localeId).on('success', function(loc){
 		loc.destroy().on('success', function(poo){
