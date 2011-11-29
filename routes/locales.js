@@ -99,7 +99,7 @@ exports.new = function(req, res){
  */
 exports.create = function(req, res){
 	var post = Locales.build({
-		locale: req.body.name
+		locale: req.body.locale
 	});
 	post.save().on('success', function(){
 		res.json({
@@ -197,7 +197,6 @@ exports.edit = function(req, res){
 exports.update = function(req, res){
 	if(req.body.locale){
 		var localeId = parseInt(req.params.locale);
-		debugger;
 		Locales.find(localeId).on('success', function(loc){
 			loc.updateAttributes({
 				locale: req.body.locale
@@ -226,6 +225,7 @@ exports.update = function(req, res){
  * DELETE /locales/:id
  */
 exports.destroy = function(req, res){
+	debugger;
 	var localeId = parseInt(req.params.locale);
 	Locales.find(localeId).on('success', function(loc){
 		loc.destroy().on('success', function(poo){
