@@ -6,9 +6,9 @@ Ext.define('FashionHelper.store.Locale', {
         type: 'rest',
         api: {
             read: 'locales.json',
-            update: 'locales.json',
-            create: 'locales/new',
-            destroy: 'locales.json'
+            update: 'locales',
+            create: 'locales',
+            destroy: 'locales'
         },
         reader: {
             type: 'json',
