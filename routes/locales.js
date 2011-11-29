@@ -172,7 +172,7 @@ exports.show = function(req, res){
 };
 
 /**
- * GET /locale/:id/edit
+ * GET /locales/:id/edit
  */
 exports.edit = function(req, res){
 	
@@ -192,14 +192,15 @@ exports.edit = function(req, res){
 };
 
 /**
- * PUT /locale/:id
+ * PUT /locales/:id
  */
 exports.update = function(req, res){
-	if(req.body.name){
+	if(req.body.locale){
 		var localeId = parseInt(req.params.locale);
+		debugger;
 		Locales.find(localeId).on('success', function(loc){
 			loc.updateAttributes({
-				locale: req.body.name
+				locale: req.body.locale
 			}).on('success', function(id){
 				// debugger;
 				res.json({
@@ -222,7 +223,7 @@ exports.update = function(req, res){
 };
 
 /**
- * DELETE /locale/:id
+ * DELETE /locales/:id
  */
 exports.destroy = function(req, res){
 	var localeId = parseInt(req.params.locale);
