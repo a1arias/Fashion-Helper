@@ -92,7 +92,7 @@ exports.new = function(req, res){
  */
 exports.create = function(req, res){
 	var post = Brands.build({
-		brand: req.body.name
+		brand: req.body.brand
 	});
 	post.save().on('success', function(foo){
 		res.json({
@@ -125,11 +125,13 @@ exports.edit = function(req, res){
  * PUT /brands/:id
  */
 exports.update = function(req, res){
-	if(req.body.name){
+	debugger;
+	if(req.body.brand){
 		var brandId = parseInt(req.params.brand);
 		Brands.find(brandId).on('success', function(rec){
 			rec.updateAttributes({
-				brand: req.body.name
+				brand: req.body.brand,
+				visible: req.body.visible
 			}).on('success', function(id){
 				res.json({
 					success: true

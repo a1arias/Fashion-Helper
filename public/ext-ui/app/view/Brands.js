@@ -23,7 +23,14 @@ Ext.define('FashionHelper.view.Brands', {
 			sortable: true,
 			dataIndex: 'visible',
 			flex: 1
-		}]
+		}],
+		// listeners: {
+		// 	selectionchange: function(model, records) {
+		// 		if (records[0]) {
+		// 			this.up('form').getForm().loadRecord(records[0]);
+		// 		}
+		// 	}
+		// }
 	}, {
 		xtype: 'fieldset',
 		title: 'Brand Details',
@@ -43,8 +50,11 @@ Ext.define('FashionHelper.view.Brands', {
 	}],
 
 	buttons: [{
+		text: 'New',
+		action: 'new'
+	}, {
 		text: 'Save',
-        action: 'save'
+		action: 'save'
 	}, {
 		text: 'Delete',
 		action: 'delete'
@@ -55,7 +65,7 @@ Ext.define('FashionHelper.view.Brands', {
 	// }
 	onRender: function(){
 		this.callParent(arguments);
-		console.dir(Ext.data.StoreManager.lookup('Brands'));
+		// console.dir(Ext.data.StoreManager.lookup('Brands'));
 		Ext.data.StoreManager.lookup('Brands').load();
 	}
 });
