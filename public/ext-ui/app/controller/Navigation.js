@@ -39,8 +39,6 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goHome: function(link){
-		console.log('home clicked');
-		// var homeview = this.getHomeView();
 		var homeview = Ext.widget('homecomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll();
@@ -48,26 +46,20 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goLocale: function(link){
-		//console.log(link);
-		var me = this;
-		console.log(me);
-		me.application.getController('Navigation').cleanUpTable();
-		
-		me.application.getController('Locale').LocaleStart();
+		var localeView = Ext.widget('localecomp');
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(localeView);
 	},
 
 	goBrand: function(link){
-		console.log('brand clicked');
 		var brandView = Ext.widget('brandcomp');
 		var portalview = this.getPortalView();
-		// window.location.hash = '!/brands'
 		portalview.removeAll();
 		portalview.add(brandView);
-		// portal.doLayout();
 	},
 
 	goSize: function(link){
-		console.log('size clicked');
 		var sizeView = Ext.widget('sizecomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll();
@@ -75,7 +67,6 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goArticle: function(link){
-		console.log('article clicked');
 		var articleView = Ext.widget('articlecomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll();
@@ -83,7 +74,6 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goGender: function(link){
-		console.log('gender clicked');
 		var genderView = Ext.widget('gendercomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll();
@@ -91,16 +81,9 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 	
 	goProfile: function(link){
-		console.log('profile clicked');
 		var profileView = Ext.widget('profilecomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll();
 		portalview.add(profileView);
-	},
-	cleanUpTable: function(){
-		var panels = this.getTable().down('panel');
-		if(panels){
-			panels.hide();
-		}
 	}
 });

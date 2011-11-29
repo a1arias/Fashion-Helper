@@ -56,8 +56,8 @@ exports.index = function(req, res) {
 				]);
 				res.json({
 					success: true,
-					locales: recs
-				});
+					data: recs
+				}, 200);
 				break;
 
 			case 'xml':

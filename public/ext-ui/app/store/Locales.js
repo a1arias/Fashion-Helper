@@ -1,8 +1,10 @@
-Ext.define('FashionHelper.store.Locale', {
+Ext.define('FashionHelper.store.Locales', {
     extend: 'Ext.data.Store',
     model: 'FashionHelper.model.Locale',
-    autoLoad: true,    
+    autoLoad: true,
+
     proxy: {
+        // format: 'json',
         type: 'rest',
         api: {
             read: 'locales.json',
@@ -12,17 +14,8 @@ Ext.define('FashionHelper.store.Locale', {
         },
         reader: {
             type: 'json',
-            root: 'locales',
+            root: 'data',
             successProperty: 'success'
         }
     }
 });
-
-/*Ext.define('FashionHelper.store.Locale', {
-    extend: 'Ext.data.Store',
-    fields: ['locale', 'visible'],
-    data: [
-        {id: 1, locale: 'Ed', visible: true},
-        {id: 2, locale: 'Tommy', visible: false}
-    ]
-});*/
