@@ -53,6 +53,7 @@ Ext.define('FashionHelper.controller.Brand', {
 			this.getBrandsStore().add(values);
 		}
 		this.getBrandsStore().sync();
+		this.getBrandsStore().load();
 	},
 	createItem: function(button){
 		console.log('createItem');

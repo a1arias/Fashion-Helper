@@ -44,6 +44,7 @@ Ext.define('FashionHelper.controller.Article', {
 			this.getArticlesStore().add(values);
 		}
 		this.getArticlesStore().sync();
+		this.getArticlesStore().load();
 	},
 	createItem: function(button){
 		console.log('createItem');

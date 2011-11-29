@@ -19,5 +19,13 @@ Ext.application({
         return typeof this.data.key != "undefined";
     },
     
-    controllers: ['Navigation', 'Locale', 'Brand', 'Size', 'Article', 'Gender']
+    controllers: [
+        'Navigation',
+        'Locale',
+        'Brand',
+        'Size',
+        'Article',
+        'Gender',
+        'Profile'
+    ]
 });

@@ -44,6 +44,7 @@ Ext.define('FashionHelper.controller.Gender', {
 			this.getGendersStore().add(values);
 		}
 		this.getGendersStore().sync();
+		this.getGendersStore().load();
 	},
 	createItem: function(button){
 		console.log('createItem');
@@ -53,7 +54,7 @@ Ext.define('FashionHelper.controller.Gender', {
 	},
 	deleteItem: function(button){
 		var x = this.getGendersgrid().up('form').getRecord();
-		this.getArticlesStore().destroy({'id': x.data.id});
+		this.getgenderssStore().destroy({'id': x.data.id});
 		
 		this.getGendersStore().load();
 	}

@@ -1,0 +1,45 @@
+Ext.define('FashionHelper.model.Profile', {
+	extend: 'Ext.data.Model',
+	idProperty: 'id',
+	fields: [{
+		name: 'id',
+		type: 'int'
+	}, {
+		name: 'name',
+		type: 'string'
+	}, {
+		name: 'gender',
+		type: 'string'
+	}, {
+		name: 'age',
+		type: 'int'
+	}, {
+		name: 'weight',
+		type: 'int'
+	}, {
+		name: 'height',
+		type: 'int'
+	}, {
+		name: 'chest',
+		type: 'int'
+	}, {
+		name: 'waist',
+		type: 'int'
+	}, {
+		name: 'seat',
+		type: 'int'
+	}, {
+		name: 'inside_leg',
+		type: 'int'
+	}, {
+		name: 'shoulder',
+		type: 'int'
+	}, {
+		name: 'arm',
+		type: 'int'
+	}, {
+		name: 'visible',
+		type: 'boolean',
+		defaultValue: true
+	}]
+});

@@ -89,7 +89,7 @@ exports.new = function(req, res){
  */
 exports.create = function(req, res){
 	var post = Articles.build({
-		article_type: req.body.type
+		article_type: req.body.article_type
 	});
 	post.save().on('success', function(id){
 		res.json({

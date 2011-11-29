@@ -92,6 +92,10 @@ Ext.define('FashionHelper.controller.Navigation', {
 	
 	goProfile: function(link){
 		console.log('profile clicked');
+		var profileView = Ext.widget('profilecomp');
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(profileView);
 	},
 	cleanUpTable: function(){
 		var panels = this.getTable().down('panel');

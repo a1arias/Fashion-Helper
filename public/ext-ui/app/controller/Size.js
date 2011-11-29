@@ -44,6 +44,7 @@ Ext.define('FashionHelper.controller.Size', {
 			this.getSizesStore().add(values);
 		}
 		this.getSizesStore().sync();
+		this.getSizesStore().load();
 	},
 	createItem: function(button){
 		console.log('createItem');
