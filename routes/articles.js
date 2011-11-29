@@ -15,21 +15,24 @@ var Articles = sequelize.import(__dirname + "/../models/Article");
 Articles.sync();
 
 /**
- * Function returns an array of records
+ * takes an Array of records
+ * and and Array of fields and returns 
+ * a collection.
+ *
+ * 
+ * @param {Array} recs
+ * @param {Array} fields
+ * @return {Array}
+ * @api public
  */
-function recs2Array(recs){
-	for(var c = 0; c < recs.length; c++){
-		var collection = [];
-		(function(c){
-			var data = {
-				id: recs[c]['id'],
-				brand: recs[c]['article_type']
-			};
-			collection.push(data);
-			// debugger;
-		})(c);
-	};
-	return collection;
+function mapCollection(recs, fields){
+	return recs.map(function(row){
+		var result = {};
+		fields.forEach(function(field){
+			result[field] = row[field]
+		});
+		return result;
+	});
 };
 
 /**
@@ -38,12 +41,13 @@ function recs2Array(recs){
 exports.index = function(req, res){
 	Articles.findAll().on('success', function(articles){
 
-		var recs = recs2Array(articles);
-
 		switch(req.format){
 			case 'json':
-				// debugger;
-				res.json(recs);
+				var recs = mapCollection(articles, ['id', 'article_type', 'visible']);
+				res.json({
+					success: true,
+					'data': recs
+					}, 200);
 				break;
 			
 			case 'xml':
@@ -53,7 +57,6 @@ exports.index = function(req, res){
 				break;
 
 			default:
-				// debugger;
 				res.render('articles', {
 					locals: {
 						title: 'Articles',

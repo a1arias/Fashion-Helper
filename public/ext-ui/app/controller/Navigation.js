@@ -76,10 +76,18 @@ Ext.define('FashionHelper.controller.Navigation', {
 
 	goArticle: function(link){
 		console.log('article clicked');
+		var articleView = Ext.widget('articlecomp');
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(articleView);
 	},
 
 	goGender: function(link){
 		console.log('gender clicked');
+		var genderView = Ext.widget('gendercomp');
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(genderView);
 	},
 	
 	goProfile: function(link){

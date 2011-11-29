@@ -41,11 +41,10 @@ function mapCollection(recs, fields){
 exports.index = function(req, res){
 	
 	Brands.findAll().on('success', function(brands){
-		
-		var recs = mapCollection(brands, ['id', 'brand', 'visible'])
 
 		switch(req.format){
 			case 'json':
+				var recs = mapCollection(brands, ['id', 'brand', 'visible']);
 				// debugger;
 				res.json({
 					success: true,

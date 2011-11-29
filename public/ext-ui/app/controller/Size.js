@@ -52,7 +52,7 @@ Ext.define('FashionHelper.controller.Size', {
 		this.getSizesgrid().up('form').loadRecord(x);
 	},
 	deleteItem: function(button){
-		var x = this.getSizessgrid().up('form').getRecord();
+		var x = this.getSizesgrid().up('form').getRecord();
 		this.getSizesStore().destroy({'id': x.data.id});
 		
 		this.getSizesStore().load();

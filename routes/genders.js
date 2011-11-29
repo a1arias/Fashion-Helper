@@ -44,7 +44,7 @@ exports.index = function(req, res){
 		switch(req.format){
 			case 'json':
 				// debugger;
-				var recs = mapCollection(genders, ['id', 'gender']);
+				var recs = mapCollection(genders, ['id', 'gender', 'visible']);
 				res.json(recs);
 				break;
 			
