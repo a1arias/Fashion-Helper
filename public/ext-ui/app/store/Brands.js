@@ -1,10 +1,10 @@
 Ext.define('FashionHelper.store.Brands', {
 	extend: 'Ext.data.Store',
-	storeId: 'brandsStore',
+	storeId: 'brandsFuStore',
 	model: 'FashionHelper.model.Brand',
 	autoLoad: true,
 	// autoSync: true,
-	// fields: ['id', 'brand', 'visible'],
+	// fields: ['id', 'brand'],
 
 	proxy: {
 		// format: 'json',
@@ -12,13 +12,21 @@ Ext.define('FashionHelper.store.Brands', {
 		api: {
 			read: 'brands.json',
 			update: 'brands',
-			create: 'brands/new',
+			create: 'brands',
 			destroy: 'brands'
 		},
 		reader: {
 			type: 'json',
 			root: 'data',
 			successProperty: 'success'
+		},
+		listeners : {
+			load : function(store, records, success) {
+				alert(records.length + " rows");
+
+				// var items = Enumerable.From(records).Select("r => r.data").ToArray(); // LINQ library
+				// alert(Ext.encode(items));
+			}
 		}
 	}
 });

@@ -6,17 +6,23 @@ Ext.define('FashionHelper.view.Brands', {
 	
 	items: [{
 		xtype: 'gridpanel',
-		store: Ext.data.StoreManager.lookup('brandsStore'),
+		title: 'Brand List',
+		store: 'Brands',
 		columns: [{
-			text: 'Id',
+			header: 'Id',
 			sortable: true,
 			dataIndex: 'id',
 			flex: 1
 		}, {
-			text: 'Brand',
+			header: 'Brand',
 			sortable: true,
 			dataIndex: 'brand',
 			flex: 4
+		}, {
+			header: 'Visible',
+			sortable: true,
+			dataIndex: 'visible',
+			flex: 1
 		}]
 	}, {
 		xtype: 'fieldset',
@@ -29,7 +35,27 @@ Ext.define('FashionHelper.view.Brands', {
 		items: [{
 			fieldLabel: 'Brand',
 			name: 'brand'
+		}, {
+			xtype: 'checkbox',
+			fieldLabel: 'Visible',
+			name: 'visible'
 		}]
-	}]
+	}],
 
+	buttons: [{
+		text: 'Save',
+        action: 'save'
+	}, {
+		text: 'Delete',
+		action: 'delete'
+	}],
+	
+	// initComponent: function() {
+	// 	this.callParent();
+	// }
+	onRender: function(){
+		this.callParent(arguments);
+		console.dir(Ext.data.StoreManager.lookup('Brands'));
+		Ext.data.StoreManager.lookup('Brands').load();
+	}
 });
