@@ -1,6 +1,5 @@
 Ext.define('FashionHelper.store.Brands', {
 	extend: 'Ext.data.Store',
-	storeId: 'brandsFuStore',
 	model: 'FashionHelper.model.Brand',
 	autoLoad: true,
 	// autoSync: true,

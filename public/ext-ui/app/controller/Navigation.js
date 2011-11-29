@@ -68,6 +68,10 @@ Ext.define('FashionHelper.controller.Navigation', {
 
 	goSize: function(link){
 		console.log('size clicked');
+		var sizeView = Ext.widget('sizecomp');
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(sizeView);
 	},
 
 	goArticle: function(link){

@@ -92,7 +92,8 @@ exports.new = function(req, res){
  */
 exports.create = function(req, res){
 	var post = Brands.build({
-		brand: req.body.brand
+		brand: req.body.brand,
+		visible: req.body.visible || 0
 	});
 	post.save().on('success', function(foo){
 		res.json({
@@ -131,7 +132,7 @@ exports.update = function(req, res){
 		Brands.find(brandId).on('success', function(rec){
 			rec.updateAttributes({
 				brand: req.body.brand,
-				visible: req.body.visible
+				visible: req.body.visible || 0
 			}).on('success', function(id){
 				res.json({
 					success: true

@@ -19,5 +19,5 @@ Ext.application({
         return typeof this.data.key != "undefined";
     },
     
-    controllers: ['Navigation', 'Locale', 'Brand']
+    controllers: ['Navigation', 'Locale', 'Brand', 'Size']
 });

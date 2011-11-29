@@ -45,7 +45,8 @@ Ext.define('FashionHelper.view.Brands', {
 		}, {
 			xtype: 'checkbox',
 			fieldLabel: 'Visible',
-			name: 'visible'
+			name: 'visible',
+			inputValue: '1'
 		}]
 	}],
 
