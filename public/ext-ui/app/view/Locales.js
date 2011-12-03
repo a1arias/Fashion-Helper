@@ -1,7 +1,6 @@
 Ext.define('FashionHelper.view.Locales', {
 	extend: 'Ext.container.Container',
 	alias: 'widget.localecomp',
-	frame: true,
 	layout: 'anchor',
 	
 	buildItems: function(){

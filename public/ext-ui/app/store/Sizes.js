@@ -16,6 +16,9 @@ Ext.define('FashionHelper.store.Sizes', {
 			type: 'json',
 			root: 'data',
 			successProperty: 'success'
+		},
+		writer: {
+			type: 'json'
 		}
 	}
 });

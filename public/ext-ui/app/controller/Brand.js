@@ -1,35 +1,17 @@
 Ext.define('FashionHelper.controller.Brand', {
 	extend: 'Ext.app.Controller',
-
 	views: ['Brands'],
-		
 	stores: ['Brands'],
 	
 	refs:[{
-		ref: 'table',
-		selector: '#globalTable'
-	},{
-		ref: 'form',
-		selector: '#globalForm'
-	},{
-		ref: 'portal',
-		selector: '#globalPortal'
-	},{
 		ref: 'brandsgrid',
 		selector: 'brandcomp gridpanel'
-	},{
-		ref: 'brandform',
-		selector: 'form'
 	}],
 
 	init: function(){
 		this.callParent();
 		this.control({
-			'brandcomp gridpanel' : {
-				itemclick: this.editItem
-			}, 'brandcomp button[action=save]': {
-				click: this.updateItem
-			}, 'brandcomp button[action=new]': {
+			'brandcomp button[action=add]': {
 				click: this.createItem
 			}, 'brandcomp button[action=delete]': {
 				click: this.deleteItem
@@ -37,34 +19,21 @@ Ext.define('FashionHelper.controller.Brand', {
 		});
 	},
 
-	editItem: function(grid, record){
-		this.getBrandsgrid().up('form').getForm().loadRecord(record);
-	},
-	updateItem: function(button){
-		var form = this.getBrandsgrid().up('form'),
-			record = form.getRecord(),
-			values = form.getValues();
-
-		if(record.data.id){
-			console.log('update');
-			record.set(values);
-		} else {
-			console.log('add');
-			this.getBrandsStore().add(values);
-		}
-		this.getBrandsStore().sync();
-		this.getBrandsStore().load();
-	},
 	createItem: function(button){
-		console.log('createItem');
-		//Default values there.
-		var x = this.getBrandsStore().model.create();
-		this.getBrandsgrid().up('form').loadRecord(x);
-	},
-	deleteItem: function(button){
-		var x = this.getBrandsgrid().up('form').getRecord();
-		this.getBrandsStore().destroy({'id': x.data.id});
+		var store = this.getBrandsStore();
+		store.insert(0, store.model.create());
 		
-		this.getBrandsStore().load();
+		var x = this.getBrandsgrid().editingPlugin;
+		x.startEdit(0, 0);
+	},
+
+	deleteItem: function(button){
+		var selection = this.getBrandsgrid().getSelectionModel().getSelection()[0];
+		var store = this.getBrandsStore();
+		if(selection){
+			store.destroy({'id': selection.data.id});
+		}
+
+		store.load();
 	}
 });

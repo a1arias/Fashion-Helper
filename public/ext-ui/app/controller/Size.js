@@ -1,14 +1,9 @@
 Ext.define('FashionHelper.controller.Size', {
 	extend: 'Ext.app.Controller',
-
 	views: ['Sizes'],
-		
 	stores: ['Sizes'],
 	
 	refs:[{
-		ref: 'portal',
-		selector: '#globalPortal'
-	},{
 		ref: 'sizesgrid',
 		selector: 'sizecomp gridpanel'
 	}],
@@ -16,46 +11,29 @@ Ext.define('FashionHelper.controller.Size', {
 	init: function(){
 		this.callParent();
 		this.control({
-			'sizecomp gridpanel' : {
-				itemclick: this.editItem
-			}, 'sizecomp button[action=save]': {
-				click: this.updateItem
-			}, 'sizecomp button[action=new]': {
-				click: this.createItem
+			'sizecomp button[action=add]': {
+				click: this.addItem
 			}, 'sizecomp button[action=delete]': {
 				click: this.deleteItem
 			}
 		});
 	},
-
-	editItem: function(grid, record){
-		this.getSizesgrid().up('form').getForm().loadRecord(record);
-	},
-	updateItem: function(button){
-		var form = this.getSizesgrid().up('form'),
-			record = form.getRecord(),
-			values = form.getValues();
-
-		if(record.data.id){
-			console.log('update');
-			record.set(values);
-		} else {
-			console.log('add');
-			this.getSizesStore().add(values);
-		}
-		this.getSizesStore().sync();
-		this.getSizesStore().load();
-	},
-	createItem: function(button){
-		console.log('createItem');
-		//Default values there.
-		var x = this.getSizesStore().model.create();
-		this.getSizesgrid().up('form').loadRecord(x);
-	},
-	deleteItem: function(button){
-		var x = this.getSizesgrid().up('form').getRecord();
-		this.getSizesStore().destroy({'id': x.data.id});
+	
+	addItem: function(button){
+		var store = this.getSizesStore();
+		store.insert(0, store.model.create());
 		
-		this.getSizesStore().load();
+		var x = this.getSizesgrid().editingPlugin;
+		x.startEdit(0, 0);
+	},
+
+	deleteItem: function(button){
+		var selection = this.getSizesgrid().getSelectionModel().getSelection()[0];
+		var store = this.getSizesStore();
+		if(selection){
+			store.destroy({'id': selection.data.id});
+		}
+
+		store.load();
 	}
 });
