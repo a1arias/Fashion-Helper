@@ -1,61 +1,42 @@
 Ext.define('FashionHelper.controller.Locale', {
-    extend: 'Ext.app.Controller',
+	extend: 'Ext.app.Controller',
+	views: ['Locales'],
+	stores: ['Locales'],
+	
+	refs:[{
+		ref: 'localesgrid',
+		selector: 'localecomp gridpanel'
+	}],
 
-    views: ['Locales'],
-        
-    stores: ['Locales'],
-    
-    refs:[{
-        ref: 'portal',
-        selector: '#globalPortal'
-    }, {
-        ref: 'localesgrid',
-        selector: 'localecomp gridpanel'
-    }],
+	init: function(){
+		this.callParent();
+		this.control({
+			'localecomp button[action=add]': {
+				click: this.createItem
+			}, 'localecomp button[action=delete]': {
+				click: this.deleteItem
+			}
+		});
+	},
 
-    init: function(){
-        this.callParent();
-        this.control({
-            'localecomp gridpanel' : {
-                itemclick: this.editItem
-            }, 'localecomp button[action=save]': {
-                click: this.updateItem
-            }, 'localecomp button[action=new]': {
-                click: this.createItem
-            }, 'localecomp button[action=delete]': {
-                click: this.deleteItem
-            }
-        });
-    },
+	createItem: function(button){
+		console.log('createItem');
+		var store = this.getLocalesStore();
+		store.insert(0, store.model.create());
+		
+		var x = this.getLocalesgrid().editingPlugin;
+		x.startEdit(0, 0);
+	},
 
-    editItem: function(grid, record){
-        this.getLocalesgrid().up('form').getForm().loadRecord(record);
-    },
-    updateItem: function(button){
-        var form = this.getLocalesgrid().up('form'),
-            record = form.getRecord(),
-            values = form.getValues();
+	deleteItem: function(button){
+		console.log('deleteItem');
 
-        if(record.data.id){
-            console.log('update');
-            record.set(values);
-        } else {
-            console.log('add');
-            this.getLocalesStore().add(values);
-        }
-        this.getLocalesStore().sync();
-        this.getLocalesStore().load();
-    },
-    createItem: function(button){
-        console.log('createItem');
-        //Default values there.
-        var x = this.getLocalesStore().model.create();
-        this.getLocalesgrid().up('form').loadRecord(x);
-    },
-    deleteItem: function(button){
-        var x = this.getLocalesgrid().up('form').getRecord();
-        this.getLocalesStore().destroy({'id': x.data.id});
-        
-        this.getLocalesStore().load();
-    }
+		var selection = this.getLocalesgrid().getSelectionModel().getSelection()[0];
+		var store = this.getLocalesStore();
+		if(selection){
+			store.destroy({'id': selection.data.id});
+		}
+
+		store.load();
+	}
 });

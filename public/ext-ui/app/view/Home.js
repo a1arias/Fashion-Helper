@@ -3,9 +3,6 @@ Ext.define('FashionHelper.view.Home', {
 	alias: 'widget.homecomp',
 	layout: 'anchor',
 	anchor: '70%',
-	autoRender: true,
-	autoShow: true,
-	autoDestroy: true,
 	autoEl: {
 		tag: 'p',
 		html: 'Lorem Ipsum is simply dummy text of the \
@@ -22,17 +19,9 @@ Ext.define('FashionHelper.view.Home', {
 		like Aldus PageMaker including versions of Lorem Ipsum.'
 	},
 
-	onRender: function(){
-		// this.autoEl = Ext.apply({}, this.initialConfig, this.autoEl);
-		this.callParent(arguments);
-		this.el.on('load', this.onLoad, this);
-	},
-
-	onLoad: function(){
-		this.fireEvent('load', this);
-	},
-
-	// initComponent: function(){
-		
-	// }
+	initComponent: function(){
+		config = Ext.apply({}, {anchor: '70%', autoEl: this.autoEl});
+		Ext.apply(this, Ext.apply(this.initialConfig, config));
+		this.callParent();
+	}
 });

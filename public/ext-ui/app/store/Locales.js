@@ -2,7 +2,7 @@ Ext.define('FashionHelper.store.Locales', {
     extend: 'Ext.data.Store',
     model: 'FashionHelper.model.Locale',
     autoLoad: true,
-
+    // autoSync: true,
     proxy: {
         // format: 'json',
         type: 'rest',
@@ -16,6 +16,9 @@ Ext.define('FashionHelper.store.Locales', {
             type: 'json',
             root: 'data',
             successProperty: 'success'
+        },
+        writer: {
+            type: 'json'
         }
     }
 });

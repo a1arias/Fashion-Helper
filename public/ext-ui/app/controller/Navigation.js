@@ -7,23 +7,10 @@ Ext.define('FashionHelper.controller.Navigation', {
 	}, {
 		ref: 'portalView',
 		selector: 'portalcomp'
-	}, {
-		ref: 'brandView',
-		selector: 'brandcomp'
-	}, {
-		ref: 'homeView',
-		selector: 'homecomp'
-	}, {
-		ref: 'table',
-		selector: '#globalTable'
-	}, {
-		ref: 'grid',
-		selector: '#globalTable localeList'
 	}],
 
 	init: function(application){
 		console.log('controller init');
-		//var me = this;
 		this.control({
 			'navigationcomp': {
 				'gohome':this.goHome,
@@ -39,23 +26,22 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goHome: function(link){
-		var homeview = Ext.widget('homecomp');
 		var portalview = this.getPortalView();
-		portalview.removeAll();
-		portalview.add(homeview);
+
+		portalview.removeAll(true);
+		portalview.add(Ext.widget('homecomp'));
 	},
 
 	goLocale: function(link){
-		var localeView = Ext.widget('localecomp');
 		var portalview = this.getPortalView();
-		portalview.removeAll();
-		portalview.add(localeView);
+		portalview.removeAll(true);
+		portalview.add(Ext.widget('localecomp'));
 	},
 
 	goBrand: function(link){
 		var brandView = Ext.widget('brandcomp');
 		var portalview = this.getPortalView();
-		portalview.removeAll();
+		portalview.removeAll(true);
 		portalview.add(brandView);
 	},
 

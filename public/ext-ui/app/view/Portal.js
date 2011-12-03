@@ -8,8 +8,7 @@ Ext.define('FashionHelper.view.Portal', {
 	layout: 'anchor',
 
 	requires: [,
-		'FashionHelper.view.Home',
-		'FashionHelper.view.Brands'
+		'FashionHelper.view.Home'
 	],
 
 	items: [{
