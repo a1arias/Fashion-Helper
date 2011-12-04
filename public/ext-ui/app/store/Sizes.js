@@ -2,6 +2,7 @@ Ext.define('FashionHelper.store.Sizes', {
 	extend: 'Ext.data.Store',
 	model: 'FashionHelper.model.Size',
 	autoLoad: true,
+	// autoSync: true,
 
 	proxy: {
 		// format: 'json',
@@ -18,7 +19,9 @@ Ext.define('FashionHelper.store.Sizes', {
 			successProperty: 'success'
 		},
 		writer: {
-			type: 'json'
+			type: 'json',
+			// root: 'data',
+			successProperty: 'success'
 		}
 	}
 });

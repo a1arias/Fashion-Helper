@@ -28,7 +28,8 @@ Ext.define('FashionHelper.view.Brands', {
 				sortable: true,
 				dataIndex: 'id',
 				flex: 1,
-				editor: 'textfield'
+				editor: 'textfield',
+				disabled: true
 			}, {
 				header: 'Brand',
 				sortable: true,

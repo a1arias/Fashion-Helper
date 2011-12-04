@@ -1,6 +1,7 @@
 Ext.define('FashionHelper.view.Sizes', {
 	extend: 'Ext.container.Container',
 	alias: 'widget.sizecomp',
+	layout: 'anchor',
 	
 	// colRenderer: function(value, metadata, record, rowIndex, colIndex, store) {
 	// 	var idx = this.columns[colIndex].field.store.find('brand_id', value);
@@ -10,7 +11,7 @@ Ext.define('FashionHelper.view.Sizes', {
 	buildItems: function(){
 		return [{
 			xtype: 'gridpanel',
-			anchor: '50%',
+			anchor: '100%',
 			title: 'Sizes List',
 			store: 'Sizes',
 			dockedItems: [{
@@ -32,7 +33,9 @@ Ext.define('FashionHelper.view.Sizes', {
 				header: 'Id',
 				sortable: true,
 				dataIndex: 'id',
-				flex: 1
+				flex: 1,
+				editor: 'textfield',
+				disabled: true
 			}, {
 				header: 'Brand',
 				sortable: true,
@@ -48,13 +51,16 @@ Ext.define('FashionHelper.view.Sizes', {
 					queryMode: 'remote',
 					displayField: 'brand',
 					valueField: 'id',
-					forceSelection: true
+					// forceSelection: true
 				}
 			}, {
 				header: 'Locale',
 				sortable: true,
-				dataIndex: 'locale',
+				dataIndex: 'locale_id',
 				flex: 2,
+				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
+					return record.get('locale_id');
+				},
 				editor: {
 					xtype: 'combobox',
 					// fieldLabel: 'Choose Locale',
@@ -62,13 +68,16 @@ Ext.define('FashionHelper.view.Sizes', {
 					queryMode: 'remote',
 					displayField: 'locale',
 					valueField: 'id',
-					forceSelection: true
+					// forceSelection: true
 				}
 			}, {
 				header: 'Gender',
 				sortable: true,
-				dataIndex: 'gender',
+				dataIndex: 'gender_id',
 				flex: 2,
+				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
+					return record.get('gender_id');
+				},
 				editor: {
 					xtype: 'combobox',
 					// fieldLabel: 'Choose Gender',
@@ -76,13 +85,16 @@ Ext.define('FashionHelper.view.Sizes', {
 					queryMode: 'remote',
 					displayField: 'gender',
 					valueField: 'id',
-					forceSelection: true
+					// forceSelection: true
 				}
 			}, {
 				header: 'Article',
 				sortable: true,
-				dataIndex: 'article',
+				dataIndex: 'article_type_id',
 				flex: 2,
+				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
+					return record.get('article_type_id');
+				},
 				editor: {
 					xtype: 'combobox',
 					// fieldLabel: 'Choose Article',
@@ -258,6 +270,7 @@ Ext.define('FashionHelper.view.Sizes', {
 					listeners: {
 						edit: function(editor, e, opt){
 							var values = editor.newValues;
+							debugger;
 							if(values.id){
 								editor.record.set(values);
 							} else {

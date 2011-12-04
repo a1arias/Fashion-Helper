@@ -25,13 +25,17 @@ var Genders = sequelize.import(__dirname + "/../models/Gender");
 var Sizes = sequelize.import(__dirname + "/../models/Size");
 
 // Define associations
-Locales.hasOne(Sizes, {foreignKey: 'locale_id'});
+Locales.hasMany(Sizes, {foreignKey: 'locale_id', as: 'Locales'});
+// Sizes.belongsTo(Locales, {foreignKey: 'locale_id'});
 
-Brands.hasOne(Sizes, {foreignKey: 'brand_id'});
+Brands.hasMany(Sizes, {foreignKey: 'brand_id', as: 'Brands'});
+// Sizes.belongsTo(Brands, {foreignKey: 'brand_id'});
 
-Articles.hasOne(Sizes, {foreignKey: 'article_type_id'});
+Articles.hasMany(Sizes, {foreignKey: 'article_type_id', as: 'Articles'});
+// Sizes.belongsTo(Articles, {foreignKey: 'article_type_id'});
 
-Genders.hasOne(Sizes, {foreignKey: 'gender_id'});
+Genders.hasMany(Sizes, {foreignKey: 'gender_id', as: 'Genders'});
+// Sizes.belongsTo(Genders, {foreignKey: 'gender_id'});
 
 // Create the schema if necessary
 Sizes.sync();
@@ -93,7 +97,10 @@ exports.index = function(req, res){
 					'height_max',
 					'heel_toe',
 				]);
-				res.json(recs);
+				res.json({
+					success: true,
+					'data': recs
+					}, 200);
 				break;
 			
 			case 'xml':
@@ -168,10 +175,10 @@ exports.new = function(req, res){
  */
 exports.create = function(req, res){
 	var post = Sizes.build({
-		brand_id: req.body.brand,
-		locale_id: req.body.locale,
-		gender_id: req.body.gender,
-		article_type_id: req.body.article,
+		brand_id: req.body.brand_id,
+		locale_id: req.body.locale_id,
+		gender_id: req.body.gender_id,
+		article_type_id: req.body.article_type_id,
 		size: req.body.size,
 		age_min: req.body.age_min,
 		age_max: req.body.age_max,
@@ -194,8 +201,37 @@ exports.create = function(req, res){
 		heal_toe: req.body.heal_toe
 	});
 	post.save().on('success', function(id){
+		var rec = {
+			'id': id.id,
+			'brand_id': id.brand_id,
+			'locale_id': id.locale_id,
+			'gender_id': id.gender_id,
+			'article_type_id': id.article_type_id,
+			'size': id.size,
+			'age_min': id.age_min,
+			'age_max': id.age_max,
+			'weight_min': id.weight_min,
+			'weight_max': id.weight_max,
+			'chest_min': id.chest_min,
+			'chest_max': id.chest_max,
+			'waist_min': id.waist_min,
+			'waist_max': id.waist_max,
+			'seat_min': id.seat_min,
+			'seat_max': id.seat_max,
+			'inside_leg_min': id.inside_leg_min,
+			'inside_leg_max': id.inside_leg_max,
+			'shoulder_min': id.shoulder_min,
+			'shoulder_max': id.shoulder_max,
+			'arm_min': id.arm_min,
+			'arm_max': id.arm_max,
+			'height_min': id.height_min,
+			'height_max': id.height_max,
+			'heal_toe': id.heal_toe,
+		};
+		debugger;
 		res.json({
-			success: true
+			success: true,
+			data: rec
 		}, 200);
 	}).on('failure', function(err){
 		debugger;
@@ -336,10 +372,10 @@ exports.update = function(req, res){
 
 	Sizes.find(sizeId).on('success', function(size){
 		size.updateAttributes({
-			brand_id: req.body.brand,
-			locale_id: req.body.locale,
-			gender_id: req.body.gender,
-			article_type_id: req.body.article,
+			brand_id: req.body.brand_id,
+			locale_id: req.body.locale_id,
+			gender_id: req.body.gender_id,
+			article_type_id: req.body.article_type_id,
 			size: req.body.size,
 			age_min: req.body.age_min,
 			age_max: req.body.age_max,
@@ -371,5 +407,25 @@ exports.update = function(req, res){
 	}).on('failure', function(err){
 		debugger;
 		throw new Error(err);
+	});
+};
+
+/**
+ * DELETE /sizes/:id
+ */
+exports.destroy = function(req, res){
+	var sizeId = parseInt(req.params.size);
+	Sizes.find(sizeId).on('success', function(size){
+		size.destroy().on('success', function(foo){
+			res.json({
+				success: true,
+			}, 200);
+		}).on('failure', function(error){
+			// debugger;
+			throw new Error(error);
+		});
+	}).on('failure', function(error){
+		// debugger;
+		throw new Error(error);
 	});
 };
