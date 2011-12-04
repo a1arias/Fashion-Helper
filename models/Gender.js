@@ -1,7 +1,7 @@
 
 
 module.exports = function(sequelize, DataTypes){
-	return sequelize.define('Gender', {
+	return sequelize.define('Genders', {
 		id: {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes){
 			defaultValue: 1
 		}
 	}, {
-		underscored: true
+		underscored: true,
+		freezeTableName: true
 	});
 };

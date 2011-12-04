@@ -1,6 +1,6 @@
 
 module.exports = function(sequelize, DataTypes){
-	return sequelize.define('Profile', {
+	return sequelize.define('Profiles', {
 		id: {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
@@ -56,5 +56,8 @@ module.exports = function(sequelize, DataTypes){
 			type: DataTypes.INTEGER,
 			allowNull: true,
 		}
+	}, {
+		underscored: true,
+		freezeTableName: true
 	});
 };

@@ -1,6 +1,6 @@
 
 module.exports = function(sequelize, DataTypes){
-	return sequelize.define('Locale', {
+	return sequelize.define('Locales', {
 		id: {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes){
 			defaultValue: 1
 		}
 	}, {
-		underscored: true
+		underscored: true,
+		freezeTableName: true
 	});
 };

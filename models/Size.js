@@ -1,6 +1,6 @@
 
 module.exports = function(sequelize, DataTypes){
-	return sequelize.define('Size', {
+	return sequelize.define('Sizes', {
 		id: {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
@@ -9,22 +9,22 @@ module.exports = function(sequelize, DataTypes){
 		brand_id: {
 			type: DataTypes.INTEGER,
 			allowNull: true,
-			primaryKey: true,
+			defaultValue: null
 		},
 		locale_id: {
 			type: DataTypes.INTEGER,
 			allowNull: true,
-			primaryKey: true,
+			defaultValue: null
 		},
 		gender_id: {
 			type: DataTypes.INTEGER,
 			allowNull: true,
-			primaryKey: true,
+			defaultValue: null
 		},
 		article_type_id: {
 			type: DataTypes.INTEGER,
 			allowNull: true,
-			primaryKey: true,
+			defaultValue: null
 		},
 		size: {
 			type: DataTypes.STRING,
@@ -117,6 +117,7 @@ module.exports = function(sequelize, DataTypes){
 			defaultValue: 1
 		}
 	}, {
-		underscored: true
+		underscored: true,
+		freezeTableName: true
 	});
 };
