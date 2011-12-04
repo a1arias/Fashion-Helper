@@ -12,7 +12,7 @@ var sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.pas
 var Genders = sequelize.import(__dirname + "/../models/Gender");
 
 // Create the schema if necessary
-Genders.sync();
+// Genders.sync();
 
 /**
  * takes an Array of records

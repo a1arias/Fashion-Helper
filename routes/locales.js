@@ -14,7 +14,7 @@ var Locales = sequelize.import(__dirname + "/../models/Locale");
 //debugger;
 
 // Create the schema if necessary
-Locales.sync();
+// Locales.sync();
 
 /**
  * takes an Array of records

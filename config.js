@@ -33,6 +33,11 @@ exports.routes = [
 		match: '/profiles',
 		name: 'profiles',
 		enabled: true
+	},
+	{
+		match: '/mappings',
+		name: 'mappings',
+		enabled: true
 	}
 ];
 

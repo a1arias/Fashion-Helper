@@ -12,6 +12,8 @@ Ext.define('FashionHelper.view.Sizes', {
 		return [{
 			xtype: 'gridpanel',
 			anchor: '100%',
+			height: 450,
+			minHeight: 150,
 			title: 'Sizes List',
 			store: 'Sizes',
 			dockedItems: [{
@@ -42,7 +44,8 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'brand_id',
 				flex: 6,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					return record.get('brand_id');
+					debugger;
+					return view.store.data.items[rowIndex].data.brand;
 				},
 				editor: {
 					xtype: 'combobox',
@@ -51,7 +54,7 @@ Ext.define('FashionHelper.view.Sizes', {
 					queryMode: 'remote',
 					displayField: 'brand',
 					valueField: 'id',
-					// forceSelection: true
+					forceSelection: true
 				}
 			}, {
 				header: 'Locale',
@@ -59,7 +62,8 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'locale_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					return record.get('locale_id');
+					debugger;
+					return view.store.data.items[rowIndex].data.locale;
 				},
 				editor: {
 					xtype: 'combobox',
@@ -76,7 +80,8 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'gender_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					return record.get('gender_id');
+					debugger;
+					return view.store.data.items[rowIndex].data.gender;
 				},
 				editor: {
 					xtype: 'combobox',
@@ -93,7 +98,8 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'article_type_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					return record.get('article_type_id');
+					debugger;
+					return view.store.data.items[rowIndex].data.article_type;
 				},
 				editor: {
 					xtype: 'combobox',

@@ -6,20 +6,28 @@ Ext.define('FashionHelper.model.Size', {
 		type: 'int'
 	}, {
 		name: 'brand_id',
-		type: 'int',
-		useNull: true
+		type: 'string',
 	}, {
-		name: 'locale_id',
-		type: 'int',
-		useNull: true
+		name: 'brand',
+		type: 'string'
 	}, {
 		name: 'gender_id',
-		type: 'int',
-		useNull: true
+		type: 'string'
+	}, {
+		name: 'gender',
+		type: 'string'
+	}, {
+		name: 'locale_id',
+		type: 'string'
+	}, {
+		name: 'locale',
+		type: 'string'
 	}, {
 		name: 'article_type_id',
-		type: 'int',
-		useNull: true
+		type: 'string'
+	}, {
+		name: 'article_type',
+		type: 'string'
 	}, {
 		name: 'size',
 		type: 'string'

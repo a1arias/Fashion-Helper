@@ -9,35 +9,24 @@ var dbconfig = require('../config.js').dbconfig,
 // Initialize database connection
 var sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.password);
 
-// Locale model
+// Import models
 var Locales = sequelize.import(__dirname + "/../models/Locale");
-
-// Brand model
 var Brands = sequelize.import(__dirname + "/../models/Brand");
-
-// Article model
 var Articles = sequelize.import(__dirname + "/../models/Article");
-
-// Gender model
 var Genders = sequelize.import(__dirname + "/../models/Gender");
-
-// Size model
 var Sizes = sequelize.import(__dirname + "/../models/Size");
 
 // Define associations
-Locales.hasMany(Sizes, {foreignKey: 'locale_id', as: 'Locales'});
-// Sizes.belongsTo(Locales, {foreignKey: 'locale_id'});
-
-Brands.hasMany(Sizes, {foreignKey: 'brand_id', as: 'Brands'});
-// Sizes.belongsTo(Brands, {foreignKey: 'brand_id'});
-
-Articles.hasMany(Sizes, {foreignKey: 'article_type_id', as: 'Articles'});
-// Sizes.belongsTo(Articles, {foreignKey: 'article_type_id'});
-
-Genders.hasMany(Sizes, {foreignKey: 'gender_id', as: 'Genders'});
-// Sizes.belongsTo(Genders, {foreignKey: 'gender_id'});
+Sizes.belongsTo(Locales);
+Sizes.belongsTo(Brands);
+Sizes.belongsTo(Articles, {foreignKey: 'article_type_id'});
+Sizes.belongsTo(Genders);
 
 // Create the schema if necessary
+Locales.sync();
+Brands.sync();
+Articles.sync();
+Genders.sync();
 Sizes.sync();
 
 /**
@@ -68,58 +57,113 @@ exports.index = function(req, res){
 	
 	Sizes.findAll({fetchAssociations: true}).on('success', function(sizes){
 
-		switch(req.format){
-			case 'json':
-				// debugger;
-				var recs = mapCollection(sizes, [
-					'id',
-					'brand_id',
-					'locale_id',
-					'article_type_id',
-					'size',
-					'age_min',
-					'age_max',
-					'weight_min',
-					'weight_max',
-					'chest_min',
-					'chest_max',
-					'waist_min',
-					'waist_max',
-					'seat_min',
-					'seat_max',
-					'inside_leg_min',
-					'inside_leg_max',
-					'shoulder_min',
-					'shoulder_max',
-					'arm_min',
-					'arm_max',
-					'height_min',
-					'height_max',
-					'heel_toe',
-				]);
-				res.json({
-					success: true,
-					'data': recs
-					}, 200);
-				break;
-			
-			case 'xml':
-				res.send('<sizes>' + sizes.map(function(s){
-					return '<size>' + s.sizes + '</size>';
-				}).join('') + '</sizes>');
-				break;
+		var chainer = new Sequelize.Utils.QueryChainer,
+			_sizes = [];
 
-			default:
-				debugger;
-				res.render('sizes', {
-					locals: {
-						title: 'Sizes',
-						data: {
-							'sizes': sizes,
-						}
-					}
+		sizes.forEach(function(s){
+			var emitter = new Sequelize.Utils.CustomEventEmitter(function(){
+				s.getBrand().on('success', function(b){
+					s.getGender().on('success', function(g){
+						s.getLocale().on('success', function(l){
+							s.getArticle().on('success', function(a){
+								_sizes.push({
+									size: s,
+									brand: b,
+									gender: g,
+									locale: l,
+									article: a,
+								});
+								emitter.emit('success');	
+							});
+						});
+					});
 				});
-		};
+			});
+			chainer.add(emitter.run());
+		});
+
+		chainer.run().on('success', function(){
+			switch(req.format){
+				case 'json':
+					
+					var fields = [
+						'id',
+						'brand_id',
+						'brand',
+						'gender_id',
+						'gender',
+						'locale_id',
+						'locale',
+						'article_type_id',
+						'article_type',
+						'size',
+						'age_min',
+						'age_max',
+						'weight_min',
+						'weight_max',
+						'chest_min',
+						'chest_max',
+						'waist_min',
+						'waist_max',
+						'seat_min',
+						'seat_max',
+						'inside_leg_min',
+						'inside_leg_max',
+						'shoulder_min',
+						'shoulder_max',
+						'arm_min',
+						'arm_max',
+						'height_min',
+						'height_max',
+						'heel_toe',
+					];
+
+					var recs = _sizes.map(function(row){
+						var result = {};
+						debugger;
+						fields.forEach(function(field){
+							if(field == 'brand'){
+								result[field] = row.brand[field];
+							} else if(field == 'locale'){
+								result[field] = row.locale[field];
+							} else if(field == 'gender'){
+								result[field] = row.gender[field];
+							} else if(field == 'article_type'){
+								debugger;
+								result[field] = row.article[field];
+							} else {
+								result[field] = row.size[field];
+							}
+						});
+						return result;
+					});
+
+					res.json({
+						success: true,
+						'data': recs
+					}, 200);
+
+					break;
+				
+				case 'xml':
+					res.send('<sizes>' + sizes.map(function(s){
+						return '<size>' + s.sizes + '</size>';
+					}).join('') + '</sizes>');
+					break;
+
+				default:
+					debugger;
+					res.render('sizes', {
+						locals: {
+							title: 'Sizes',
+							data: {
+								'sizes': sizes,
+							}
+						}
+					});
+			};
+		});
+		
 	}).on('failure', function(err){
 		debugger;
 		throw new Error(err);

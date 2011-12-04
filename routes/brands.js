@@ -12,7 +12,7 @@ var sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.pas
 var Brands = sequelize.import(__dirname + "/../models/Brand");
 
 // Create the schema if necessary
-Brands.sync();
+// Brands.sync();
 
 /**
  * takes an Array of records
