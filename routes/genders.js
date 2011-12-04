@@ -95,7 +95,11 @@ exports.create = function(req, res){
 		}, 200);
 	}).on('failure', function(err){
 		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
+		// throw new Error(err);
 	});
 };
 

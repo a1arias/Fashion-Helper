@@ -1,14 +1,9 @@
 Ext.define('FashionHelper.controller.Gender', {
 	extend: 'Ext.app.Controller',
-
 	views: ['Genders'],
-		
 	stores: ['Genders'],
 	
 	refs:[{
-		ref: 'portal',
-		selector: '#globalPortal'
-	},{
 		ref: 'gendersgrid',
 		selector: 'gendercomp gridpanel'
 	}],
@@ -16,11 +11,7 @@ Ext.define('FashionHelper.controller.Gender', {
 	init: function(){
 		this.callParent();
 		this.control({
-			'gendercomp gridpanel' : {
-				itemclick: this.editItem
-			}, 'gendercomp button[action=save]': {
-				click: this.updateItem
-			}, 'gendercomp button[action=new]': {
+			'gendercomp button[action=add]': {
 				click: this.createItem
 			}, 'gendercomp button[action=delete]': {
 				click: this.deleteItem
@@ -28,34 +19,24 @@ Ext.define('FashionHelper.controller.Gender', {
 		});
 	},
 
-	editItem: function(grid, record){
-		this.getGendersgrid().up('form').getForm().loadRecord(record);
-	},
-	updateItem: function(button){
-		var form = this.getGendersgrid().up('form'),
-			record = form.getRecord(),
-			values = form.getValues();
-
-		if(record.data.id){
-			console.log('update');
-			record.set(values);
-		} else {
-			console.log('add');
-			this.getGendersStore().add(values);
-		}
-		this.getGendersStore().sync();
-		this.getGendersStore().load();
-	},
 	createItem: function(button){
 		console.log('createItem');
-		//Default values there.
-		var x = this.getGendersStore().model.create();
-		this.getGendersgrid().up('form').loadRecord(x);
-	},
-	deleteItem: function(button){
-		var x = this.getGendersgrid().up('form').getRecord();
-		this.getgenderssStore().destroy({'id': x.data.id});
+		var store = this.getGendersStore();
+		store.insert(0, store.model.create());
 		
-		this.getGendersStore().load();
+		var x = this.getGendersgrid().editingPlugin;
+		x.startEdit(0, 0);
+	},
+
+	deleteItem: function(button){
+		console.log('deleteItem');
+
+		var selection = this.getGendersgrid().getSelectionModel().getSelection()[0];
+		var store = this.getGendersStore();
+		if(selection){
+			store.destroy({'id': selection.data.id});
+		}
+
+		store.load();
 	}
 });

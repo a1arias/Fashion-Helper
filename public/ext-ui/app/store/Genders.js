@@ -2,7 +2,7 @@ Ext.define('FashionHelper.store.Genders', {
 	extend: 'Ext.data.Store',
 	model: 'FashionHelper.model.Gender',
 	autoLoad: true,
-
+	// autoSync: true,
 	proxy: {
 		// format: 'json',
 		type: 'rest',
@@ -16,6 +16,9 @@ Ext.define('FashionHelper.store.Genders', {
 			type: 'json',
 			root: 'data',
 			successProperty: 'success'
+		},
+		writer: {
+			type: 'json'
 		}
 	}
 });

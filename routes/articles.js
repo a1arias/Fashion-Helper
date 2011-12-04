@@ -91,13 +91,25 @@ exports.create = function(req, res){
 	var post = Articles.build({
 		article_type: req.body.article_type
 	});
+	debugger;
 	post.save().on('success', function(id){
+		debugger;
+		var rec = {
+			'id': id.id,
+			'article_type': id.article_type,
+			'visible': id.visible
+		};
 		res.json({
-			success: true
+			success: true,
+			data: rec
 		}, 200);
 	}).on('failure', function(err){
 		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
+		// throw new Error(err);
 	});
 };
 
@@ -122,18 +134,22 @@ exports.edit = function(req, res){
  * PUT /articles/:id
  */
  exports.update = function(req, res){
- 	if(req.body.type){
+ 	if(req.body.article_type){
  		var articleId = parseInt(req.params.article);
  		Articles.find(articleId).on('success', function(rec){
  			rec.updateAttributes({
- 				article_type: req.body.type
+ 				article_type: req.body.article_type
  			}).on('success', function(id){
  				res.json({
 					success: true
 				}, 200);
  			}).on('failure', function(err){
  				debugger;
- 				throw new Error(err);
+ 				res.json({
+					success: false,
+					msg: err
+				}, 500);
+ 				// throw new Error(err);
  			});
  		}).on('failure', function(err){
  			debugger;

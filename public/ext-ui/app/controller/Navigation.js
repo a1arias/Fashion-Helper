@@ -27,7 +27,6 @@ Ext.define('FashionHelper.controller.Navigation', {
 
 	goHome: function(link){
 		var portalview = this.getPortalView();
-
 		portalview.removeAll(true);
 		portalview.add(Ext.widget('homecomp'));
 	},
@@ -39,31 +38,27 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 
 	goBrand: function(link){
-		var brandView = Ext.widget('brandcomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll(true);
-		portalview.add(brandView);
+		portalview.add(Ext.widget('brandcomp'));
 	},
 
 	goSize: function(link){
-		var sizeView = Ext.widget('sizecomp');
 		var portalview = this.getPortalView();
-		portalview.removeAll();
-		portalview.add(sizeView);
+		portalview.removeAll(true);
+		portalview.add(Ext.widget('sizecomp'));
 	},
 
 	goArticle: function(link){
-		var articleView = Ext.widget('articlecomp');
 		var portalview = this.getPortalView();
-		portalview.removeAll();
-		portalview.add(articleView);
+		portalview.removeAll(true);
+		portalview.add(Ext.widget('articlecomp'));
 	},
 
 	goGender: function(link){
-		var genderView = Ext.widget('gendercomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll();
-		portalview.add(genderView);
+		portalview.add(Ext.widget('gendercomp'));
 	},
 	
 	goProfile: function(link){
