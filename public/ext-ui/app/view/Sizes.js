@@ -44,12 +44,12 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'brand_id',
 				flex: 6,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					debugger;
+					// debugger;
 					return view.store.data.items[rowIndex].data.brand;
 				},
 				editor: {
 					xtype: 'combobox',
-					fieldLabel: 'Choose Brand',
+					// fieldLabel: 'Choose Brand',
 					store: 'Brands',
 					queryMode: 'remote',
 					displayField: 'brand',
@@ -62,7 +62,7 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'locale_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					debugger;
+					// debugger;
 					return view.store.data.items[rowIndex].data.locale;
 				},
 				editor: {
@@ -80,7 +80,7 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'gender_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					debugger;
+					// debugger;
 					return view.store.data.items[rowIndex].data.gender;
 				},
 				editor: {
@@ -98,7 +98,7 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'article_type_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					debugger;
+					// debugger;
 					return view.store.data.items[rowIndex].data.article_type;
 				},
 				editor: {

@@ -120,16 +120,15 @@ exports.index = function(req, res){
 
 					var recs = _sizes.map(function(row){
 						var result = {};
-						debugger;
+						// debugger;
 						fields.forEach(function(field){
-							if(field == 'brand'){
+							if(field == 'brand' && row.brand){
 								result[field] = row.brand[field];
-							} else if(field == 'locale'){
+							} else if(field == 'locale' && row.locale){
 								result[field] = row.locale[field];
-							} else if(field == 'gender'){
+							} else if(field == 'gender' && row.gender){
 								result[field] = row.gender[field];
-							} else if(field == 'article_type'){
-								debugger;
+							} else if(field == 'article_type' && row.article){
 								result[field] = row.article[field];
 							} else {
 								result[field] = row.size[field];
