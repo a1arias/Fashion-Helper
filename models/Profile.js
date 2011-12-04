@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes){
 			validate: {
 				len: {
 					args: 3,
-					msg: 'A minimux of 2 characters is required'
+					msg: 'A minimum of 2 characters is required'
 				}
 			}
 		},

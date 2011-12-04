@@ -48,7 +48,7 @@ Ext.define('FashionHelper.view.Profiles', {
 				dataIndex: 'gender_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					return record.get('gender_id');
+					return view.store.data.items[rowIndex].data.gender;
 				},
 				editor: {
 					xtype: 'combobox',

@@ -8,16 +8,15 @@ var dbconfig = require('../config.js').dbconfig,
 // Initialize database connection
 var sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.password);
 
-// Genders model
+// Import models
 var Genders = sequelize.import(__dirname + "/../models/Gender");
-
-// Profile model
 var Profiles = sequelize.import(__dirname + "/../models/Profile");
 
-// define associations
-Genders.hasOne(Profiles);
+// Define associations
+Profiles.belongsTo(Genders);
 
-// Create the schema if necessary
+// Create schema if necessary
+Genders.sync();
 Profiles.sync();
 
 
@@ -50,42 +49,80 @@ exports.index = function(req, res){
 	
 	Profiles.findAll().on('success', function(profiles){
 		
-		switch(req.format){
-			case 'json':
-				var recs = mapCollection(profiles, [
-					'id',
-					'name',
-					'gender_id',
-					'age',
-					'weight',
-					'height',
-					'chest',
-					'waist',
-					'seat',
-					'inside_leg',
-					'shoulder',
-					'arm'
-				]);
-				res.json(recs);
-				break;
+		var chainer = new Sequelize.Utils.QueryChainer,
+			_profiles  = [];
 
-			case 'xml':
-				res.send('<profiles>' + profiles.map(function(p){
-					return '<profile>' + p.profile + '</profile>';
-				}).join('') + '</profiles>');
-				break;
-
-			default:
-				// debugger;
-				res.render('profiles', {
-					locals: {
-						title: 'Profiles',
-						data: {
-							'profiles': profiles
-						}
-					}
+		profiles.forEach(function(p) {
+			var emitter = new Sequelize.Utils.CustomEventEmitter(function(){
+				p.getGender().on('success', function(x){
+					_profiles.push({
+						profile: p,
+						gender: x
+					});
+					emitter.emit('success')
 				});
-		};
+			});
+			chainer.add(emitter.run());
+		});
+
+		chainer.run().on('success', function(){
+
+			switch(req.format){
+				case 'json':
+
+					var fields = [
+						'id',
+						'name',
+						'gender_id',
+						'gender',
+						'age',
+						'weight',
+						'height',
+						'chest',
+						'waist',
+						'seat',
+						'inside_leg',
+						'shoulder',
+						'arm'
+					];
+
+					var recs = _profiles.map(function(row){
+						var result = {};
+						fields.forEach(function(field){
+							if(field == 'gender'){
+								result[field] = row.gender[field];
+							} else {
+								result[field] = row.profile[field];
+							}
+						});
+						return result;
+					});
+
+					res.json({
+						success: true,
+						'data': recs
+					}, 200);
+
+					break;
+				
+				case 'xml':
+					res.send('<profiles>' + profiles.map(function(p){
+						return '<profile>' + s.name + '</profile>';
+					}).join('') + '</profiles>');
+					break;
+
+				default:
+					debugger;
+					res.render('mappings', {
+						locals: {
+							title: 'Profile-Size Mappings',
+							data: {
+								'profiles': profiles,
+							}
+						}
+					});
+			};
+		});
 	}).on('failure', function(err){
 		debugger;
 		throw new Error(err);
@@ -119,7 +156,7 @@ exports.new = function(req, res){
 exports.create = function(req, res){
 	var post = Profiles.build({
 		name: req.body.name,
-		gender_id: req.body.gender,
+		gender_id: req.body.gender_id,
 		age: req.body.age,
 		weight: req.body.weight,
 		height: req.body.height,
@@ -245,8 +282,8 @@ exports.update = function(req, res){
 	Profiles.find(profileId).on('success', function(profile){
 		profile.updateAttributes({
 				name: req.body.name,
-				age: req.body.gender_id,
 				age: req.body.age,
+				gender_id: req.body.gender_id,
 				weight: req.body.weight,
 				height: req.body.height,
 				chest: req.body.chest,

@@ -9,6 +9,9 @@ Ext.define('FashionHelper.model.Profile', {
 		type: 'string'
 	}, {
 		name: 'gender_id',
+		type: 'int'
+	}, {
+		name: 'gender',
 		type: 'string'
 	}, {
 		name: 'age',
