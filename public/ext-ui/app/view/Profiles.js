@@ -1,148 +1,151 @@
 Ext.define('FashionHelper.view.Profiles', {
-	extend: 'Ext.form.Panel',
+	extend: 'Ext.container.Container',
 	alias: 'widget.profilecomp',
+	layout: 'anchor',
 	
-	frame: true,
-	
-	items: [{
-		xtype: 'gridpanel',
-		title: 'Profiles List',
-		store: 'Profiles',
-		columns: [{
-			header: 'Id',
-			sortable: true,
-			dataIndex: 'id',
-			flex: 1
-		}, {
-			header: 'Name',
-			sortable: true,
-			dataIndex: 'name',
-			flex: 2
-		}, {
-			header: 'Gender',
-			sortable: true,
-			dataIndex: 'gender',
-			flex: 1
-		}, {
-			header: 'Age',
-			sortable: true,
-			dataIndex: 'age',
-			flex: 1
-		}, {
-			header: 'Weight',
-			sortable: true,
-			dataIndex: 'weight',
-			flex: 1
-		}, {
-			header: 'Height',
-			sortable: true,
-			dataIndex: 'height',
-			flex: 1
-		}, {
-			header: 'Chest',
-			sortable: true,
-			dataIndex: 'chest',
-			flex: 1
-		}, {
-			header: 'Seat',
-			sortable: true,
-			dataIndex: 'seat',
-			flex: 1
-		}, {
-			header: 'Inside Leg',
-			sortable: true,
-			dataIndex: 'inside_leg',
-			flex: 1
-		}, {
-			header: 'Shoulder',
-			sortable: true,
-			dataIndex: 'shoulder',
-			flex: 1
-		}, {
-			header: 'Arm',
-			sortable: true,
-			dataIndex: 'arm',
-			flex: 1
-		}, {
-			header: 'Visible',
-			sortable: true,
-			dataIndex: 'visible',
-			flex: 1
-		}],
-		// listeners: {
-		// 	selectionchange: function(model, records) {
-		// 		if (records[0]) {
-		// 			this.up('form').getForm().loadRecord(records[0]);
-		// 		}
-		// 	}
-		// }
-	}, {
-		xtype: 'fieldset',
-		title: 'Profile Details',
-		defaults: {
-			width: 240,
-			labelWidth: 90
-		},
-		defaultType: 'textfield',
-		items: [{
-			fieldLabel: 'Name',
-			name: 'name'
-		}, {
-			xtype: 'pickerfield',
-			fieldLabel: 'Gender',
-			name: 'gender'
-		}, {
-			fieldLabel: 'Age',
-			name: 'age'
-		}, {
-			fieldLabel: 'Weight',
-			name: 'weight'
-		}, {
-			fieldLabel: 'Height',
-			name: 'height'
-		}, {
-			fieldLabel: 'Chest',
-			name: 'chest'
-		}, {
-			fieldLabel: 'Waist',
-			name: 'waist'
-		}, {
-			fieldLabel: 'Seat',
-			name: 'seat'
-		}, {
-			fieldLabel: 'Inside Leg',
-			name: 'inside_leg'
-		}, {
-			fieldLabel: 'Shoulder',
-			name: 'shoulder'
-		}, {
-			fieldLabel: 'Arm',
-			name: 'arm'
-		}, {
-			xtype: 'checkbox',
-			fieldLabel: 'Visible',
-			name: 'visible',
-			inputValue: '1'
-		}]
-	}],
+	// colRenderer: function(value, metadata, record, rowIndex, colIndex, store) {
+	// 	var idx = this.columns[colIndex].field.store.find('brand_id', value);
+	// 	return idx !== -1 ? this.columns[colIndex].field.store.getAt(idx).get('status_name') : '';
+	// },
 
-	buttons: [{
-		text: 'New',
-		action: 'new'
-	}, {
-		text: 'Save',
-		action: 'save'
-	}, {
-		text: 'Delete',
-		action: 'delete'
-	}],
-	
-	// initComponent: function() {
-	// 	this.callParent();
-	// }
-	onRender: function(){
-		this.callParent(arguments);
-		// console.dir(Ext.data.StoreManager.lookup('Brands'));
-		Ext.data.StoreManager.lookup('Profiles').load();
+	buildItems: function(){
+		return [{
+			xtype: 'gridpanel',
+			anchor: '100%',
+			title: 'Profiles List',
+			store: 'Profiles',
+			dockedItems: [{
+				xtype: 'toolbar',
+				dock: 'top',
+				items: [{
+					text: 'Add',
+					action: 'add',
+					iconCls: 'icon-add',
+				}, '-', {
+					itemId: 'delete',
+					text: 'Delete',
+					action: 'delete',
+					iconCls: 'icon-delete',
+				}]
+			}],
+
+			columns: [{
+				header: 'Id',
+				sortable: true,
+				dataIndex: 'id',
+				flex: 1,
+				editor: 'textfield',
+				disabled: true
+			}, {
+				header: 'Name',
+				sortable: true,
+				dataIndex: 'name',
+				flex: 2,
+				editor: 'textfield'
+			}, {
+				header: 'Gender',
+				sortable: true,
+				dataIndex: 'gender_id',
+				flex: 2,
+				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
+					return record.get('gender_id');
+				},
+				editor: {
+					xtype: 'combobox',
+					// fieldLabel: 'Choose Gender',
+					store: 'Genders',
+					queryMode: 'remote',
+					displayField: 'gender',
+					valueField: 'id',
+					forceSelection: true
+				}
+			}, {
+				header: 'Age',
+				sortable: true,
+				dataIndex: 'age',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Weight',
+				sortable: true,
+				dataIndex: 'weight',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Height',
+				sortable: true,
+				dataIndex: 'height',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Chest',
+				sortable: true,
+				dataIndex: 'chest',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Seat',
+				sortable: true,
+				dataIndex: 'seat',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Waist',
+				sortable: true,
+				dataIndex: 'waist',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Inside Leg',
+				sortable: true,
+				dataIndex: 'inside_leg',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Shoulder',
+				sortable: true,
+				dataIndex: 'shoulder',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Arm',
+				sortable: true,
+				dataIndex: 'arm',
+				flex: 1,
+				editor: 'textfield'
+			}, {
+				header: 'Visible',
+				sortable: true,
+				dataIndex: 'visible',
+				flex: 1,
+				editor: 'checkbox'
+			}],
+			
+			selType: 'rowmodel',
+			plugins: [
+				Ext.create('Ext.grid.plugin.RowEditing', {
+					clicksToEdit: 2,
+					listeners: {
+						edit: function(editor, e, opt){
+							var values = editor.newValues;
+							debugger;
+							if(values.id){
+								editor.record.set(values);
+							} else {
+								editor.store.add(values);
+							}
+							editor.store.sync();
+							editor.store.load();
+						}
+					}
+				})
+			],
+		}];
+	},
+
+	initComponent: function(){
+		config = Ext.apply({}, {items: this.buildItems()});
+		Ext.apply(this, Ext.apply(this.initialConfig, config));
+		this.callParent();
 	}
 });

@@ -245,14 +245,17 @@ exports.update = function(req, res){
 	Profiles.find(profileId).on('success', function(profile){
 		profile.updateAttributes({
 				name: req.body.name,
+				age: req.body.gender_id,
 				age: req.body.age,
 				weight: req.body.weight,
 				height: req.body.height,
+				chest: req.body.chest,
 				waist: req.body.waist,
 				seat: req.body.seat,
 				inside_leg: req.body.inside_leg,
 				shoulder: req.body.shoulder,
-				arm: req.body.arm
+				arm: req.body.arm,
+				visible: req.body.visible,
 			}).on('success', function(id){
 				// debugger;
 				res.json({

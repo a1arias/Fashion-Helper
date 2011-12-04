@@ -62,9 +62,8 @@ Ext.define('FashionHelper.controller.Navigation', {
 	},
 	
 	goProfile: function(link){
-		var profileView = Ext.widget('profilecomp');
 		var portalview = this.getPortalView();
 		portalview.removeAll();
-		portalview.add(profileView);
+		portalview.add(Ext.widget('profilecomp'));
 	}
 });

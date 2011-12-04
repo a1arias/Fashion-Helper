@@ -8,7 +8,7 @@ Ext.define('FashionHelper.model.Profile', {
 		name: 'name',
 		type: 'string'
 	}, {
-		name: 'gender',
+		name: 'gender_id',
 		type: 'string'
 	}, {
 		name: 'age',
