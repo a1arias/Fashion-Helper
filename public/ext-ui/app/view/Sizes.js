@@ -276,7 +276,7 @@ Ext.define('FashionHelper.view.Sizes', {
 					listeners: {
 						edit: function(editor, e, opt){
 							var values = editor.newValues;
-							debugger;
+							// debugger;
 							if(values.id){
 								editor.record.set(values);
 							} else {

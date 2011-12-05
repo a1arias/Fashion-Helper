@@ -271,7 +271,7 @@ exports.create = function(req, res){
 			'height_max': id.height_max,
 			'heal_toe': id.heal_toe,
 		};
-		debugger;
+		// debugger;
 		res.json({
 			success: true,
 			data: rec
