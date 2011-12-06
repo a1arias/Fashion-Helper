@@ -134,8 +134,12 @@ Ext.define('FashionHelper.view.Profiles', {
 							} else {
 								editor.store.add(values);
 							}
-							editor.store.sync();
-							editor.store.load();
+							editor.store.sync({
+								callback: function(){
+									this.grid.store.load();
+								},
+								scope: this
+							});
 						}
 					}
 				})
