@@ -2,11 +2,6 @@ Ext.define('FashionHelper.view.Sizes', {
 	extend: 'Ext.container.Container',
 	alias: 'widget.sizecomp',
 	layout: 'anchor',
-	
-	// colRenderer: function(value, metadata, record, rowIndex, colIndex, store) {
-	// 	var idx = this.columns[colIndex].field.store.find('brand_id', value);
-	// 	return idx !== -1 ? this.columns[colIndex].field.store.getAt(idx).get('status_name') : '';
-	// },
 
 	buildItems: function(){
 		return [{
@@ -44,7 +39,6 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'brand_id',
 				flex: 6,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					// debugger;
 					return view.store.data.items[rowIndex].data.brand;
 				},
 				editor: {
@@ -62,7 +56,6 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'locale_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					// debugger;
 					return view.store.data.items[rowIndex].data.locale;
 				},
 				editor: {
@@ -98,7 +91,6 @@ Ext.define('FashionHelper.view.Sizes', {
 				dataIndex: 'article_type_id',
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
-					// debugger;
 					return view.store.data.items[rowIndex].data.article_type;
 				},
 				editor: {
@@ -276,18 +268,21 @@ Ext.define('FashionHelper.view.Sizes', {
 					listeners: {
 						edit: function(editor, e, opt){
 							var values = editor.newValues;
-							// debugger;
 							if(values.id){
 								editor.record.set(values);
 							} else {
 								editor.store.add(values);
 							}
-							editor.store.sync();
-							editor.store.load();
+							editor.store.sync({
+								callback: function(){
+									this.grid.store.load();
+								},
+								scope: this
+							});
 						}
 					}
 				})
-			],
+			]
 		}];
 	},
 

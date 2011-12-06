@@ -1,5 +1,6 @@
 Ext.define('FashionHelper.store.Sizes', {
 	extend: 'Ext.data.Store',
+	requires: ['FashionHelper.misc.AbstractStore'],
 	model: 'FashionHelper.model.Size',
 	autoLoad: true,
 	// autoSync: true,
@@ -22,6 +23,12 @@ Ext.define('FashionHelper.store.Sizes', {
 			type: 'json',
 			// root: 'data',
 			successProperty: 'success'
+		},
+		afterRequest: function(request, success){
+			// debugger;
+			if(request.method == 'POST'){
+				// debugger;
+			}
 		}
 	}
 });
