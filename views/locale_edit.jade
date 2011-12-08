@@ -8,7 +8,7 @@ block scripts
 block content
 	div#formcntnr
 		form(action='/locales/'+id, method='post')
-			label(for='name')
-			input(name='name', id='name', value=name)
+			label(for='locale')
+			input(name='locale', id='locale', value=name)
 			input(type="hidden", name="_method", value="put")
 			input(type='submit', value='add')

@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div.localecntnr
+			a(href='/brands/'+data.brand.id+'/edit', title='Edit '+data.brand.brand) #{data.brand.brand}
+			form(method='post', action='/brands/'+data.brand.id)
+				input(type='hidden', name='_method', value='DELETE')
+				input(type='submit', value='Delete')

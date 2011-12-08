@@ -44,12 +44,18 @@ exports.index = function(req, res){
 
 		switch(req.format){
 			case 'json':
-				var recs = mapCollection(brands, ['id', 'brand', 'visible']);
-				// debugger;
-				res.json({
-					success: true,
-					'data': recs
-					}, 200);
+				if(brands){
+					var recs = mapCollection(brands, ['id', 'brand', 'visible']);
+					res.json({
+						success: true,
+						'data': recs
+					}, 200);	
+				} else {
+					res.json({
+						success: false,
+						msg: 'The requested resource could not be found.'
+					}, 404);
+				}
 				break;
 			
 			case 'xml':
@@ -59,17 +65,41 @@ exports.index = function(req, res){
 				break;
 
 			default:
-				// debugger;
-				res.render('brands', {
-					locals: {
-						title: 'Brands',
-						data: brands
-					}
-				});	
+				if(brands){
+					res.render('brands', {
+						locals: {
+							title: 'Brands',
+							data: brands
+						}
+					});
+				} else {
+					res.render('404', {
+						locals: {
+							title: '404 - Not Found',
+							msg: 'The requested resource could not be found.'
+						}
+					});
+				}
 		}		
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err)
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };
 
@@ -97,10 +127,90 @@ exports.create = function(req, res){
 	post.save().on('success', function(foo){
 		res.json({
 			success: true,
+			data: {
+				'id': foo.id,
+				'brand': foo.brand,
+				'visible': foo.visible,
+			}
 		}, 200);
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
+	});
+};
+
+/**
+ * GET /brands/:id
+ */
+exports.show = function(req, res){
+	var brandId = parseInt(req.params.brand);
+
+	Brands.find(brandId).on('success', function(brand){
+		switch(req.format){
+			case 'json':
+				if(!brand){
+					res.json({
+						success: false,
+						msg: 'The requested resource could not be found'
+					}, 404);
+				} else {
+					var rec = {
+						'id': brand.id,
+						'brand': brand.brand,
+						'visible': brand.visible
+					};
+					res.json({
+						success: true,
+						locale: rec
+					});
+				}
+				break;
+
+			case 'xml':
+				res.send('<brand>' + brand.name + '</brand>');
+				break;
+
+			default:
+				if(!brand){
+					res.render('404', {
+						locals: {
+							title: '404 - Not Found',
+							desc: 'The requested resource could not be found'
+						},
+						status: 404
+					});
+				} else {
+					res.render('brand_show', {
+						locals: {
+							title: 'Display Locale',
+							data: {
+								'brand': brand
+							}
+						}
+					});
+				}
+		};
+	}).on('failure', function(err){
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };
 
@@ -110,14 +220,29 @@ exports.create = function(req, res){
 exports.edit = function(req, res){
 	var brandId = parseInt(req.params.brand);
 	Brands.find(brandId).on('success', function(rec){
-		res.render('brand_edit', {
-			id: rec.id,
-			title: 'Edit brand: ' + rec.brand,
-			name: rec.brand
-		});
+		if(rec){
+			res.render('brand_edit', {
+				id: rec.id,
+				title: 'Edit brand: ' + rec.brand,
+				name: rec.brand
+			});
+		} else {
+			res.render('404', {
+				locals: {
+					title: '404 - Not Found',
+					desc: 'The requested resource could not be found'
+				},
+				status: 404
+			});
+		}
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.render('500', {
+			locals: {
+				title: '500 - Internal Server Error',
+				desc: err
+			},
+			status: 500
+		});
 	});
 };
 
@@ -125,27 +250,45 @@ exports.edit = function(req, res){
  * PUT /brands/:id
  */
 exports.update = function(req, res){
-	debugger;
 	if(req.body.brand){
 		var brandId = parseInt(req.params.brand);
 		Brands.find(brandId).on('success', function(rec){
-			rec.updateAttributes({
-				brand: req.body.brand,
-				visible: req.body.visible || 0
-			}).on('success', function(id){
+			if(rec){
+				rec.updateAttributes({
+					brand: req.body.brand,
+					visible: req.body.visible || 0
+				}).on('success', function(foo){
+					res.json({
+						success: true,
+						data: {
+							'id': foo.id,
+							'brand': foo.brand,
+							'visible': foo.visible,
+						}
+					}, 200);
+				}).on('failure', function(err){
+					res.json({
+						success: false,
+						msg: err
+					}, 500);
+				});
+			} else {
 				res.json({
-					success: true
-				}, 200);
-			}).on('failure', function(err){
-				debugger;
-				throw new Error(err);
-			});
+					success: false,
+					msg: 'The requested resource could not be found'
+				}, 404);
+			}
 		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
+			res.json({
+				success: false,
+				msg: err
+			}, 500);
 		});
 	} else {
-		throw new Error('Data not provided');
+		res.json({
+			success: false,
+			msg: 'Data not provided'
+		}, 500);
 	}
 };
 
@@ -155,16 +298,32 @@ exports.update = function(req, res){
 exports.destroy = function(req, res){
 	var brandId = parseInt(req.params.brand);
 	Brands.find(brandId).on('success', function(rec){
-		rec.destroy().on('success', function(foo){
+		if(rec){
+			rec.destroy().on('success', function(foo){
+				res.json({
+					success: true,
+					data: {
+						'id': foo.id,
+						'id': foo.brand,
+						'id': foo.visible,
+					}
+				}, 200);
+			}).on('failure', function(err){
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+			});	
+		} else {
 			res.json({
-				success: true,
-			}, 200);
-		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
-		});
+				success: false,
+				msg: 'The requested resource could not be found'
+			}, 404);
+		}
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };

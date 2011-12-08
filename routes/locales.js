@@ -48,16 +48,22 @@ exports.index = function(req, res) {
 		switch (req.format) {
 
 			case 'json':
-				// debugger;
-				var recs = mapCollection(locales, [
-					'id',
-					'locale',
-					'visible'
-				]);
-				res.json({
-					success: true,
-					data: recs
-				}, 200);
+				if(locales){
+					var recs = mapCollection(locales, [
+						'id',
+						'locale',
+						'visible'
+					]);
+					res.json({
+						success: true,
+						data: recs
+					}, 200);
+				} else {
+					res.json({
+						success: false,
+						msg: 'The requested resource could not be found.'
+					}, 404);
+				}
 				break;
 
 			case 'xml':
@@ -67,17 +73,41 @@ exports.index = function(req, res) {
 				break;
 
 			default:
-				// debugger;
-				res.render('locales', {
-					locals: {
-						title: 'Locales',
-						locs: locales
-					}
-				});
-		}
+				if(!locales){
+					res.render('404', {
+						locals: {
+							title: '404 - Not Found',
+							msg: 'The requested resource could not be found.'
+						}
+					});
+				} else {
+					res.render('locales', {
+						locals: {
+							title: 'Locales',
+							locs: locales
+						}
+					});	
+				}
+		};
 	}).on('failure', function(err){
-		// debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };
 
@@ -103,14 +133,13 @@ exports.create = function(req, res){
 	});
 	post.save().on('success', function(){
 		res.json({
-			success: true,
-			// locale: {
-			// 	name: req.body.name,
-			// }
+			success: true
 		}, 200);
 	}).on('failure', function(error){
-		// debugger;
-		throw new Error(error);
+		res.json({
+			success: false,
+			msg: error
+		}, 500);
 	});
 };
 
@@ -118,7 +147,7 @@ exports.create = function(req, res){
  * GET /locales/:id
  */
 exports.show = function(req, res){
-	var localeId = parseInt(req.params.ig);
+	var localeId = parseInt(req.params.locale);
 
 	Locales.find(localeId).on('success', function(locale){
 		switch(req.format){
@@ -147,12 +176,12 @@ exports.show = function(req, res){
 
 			default:
 				if(!locale){
-					res.rener('404', {
+					res.render('404', {
 						locals: {
 							title: '404 - Not Found',
 							desc: 'The requested resource could not be found'
 						},
-					status: 404
+						status: 404
 					});
 				} else {
 					res.render('locales_show', {
@@ -166,8 +195,24 @@ exports.show = function(req, res){
 				}
 		};
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };
 
@@ -177,17 +222,20 @@ exports.show = function(req, res){
 exports.edit = function(req, res){
 	
 	var localeId = parseInt(req.params.locale);
-	// debugger;
 	Locales.find(localeId).on('success', function(rec){
-		// debugger;
 		res.render('locale_edit', {
 			id: rec.id,
 			title: 'Edit locale: ' + rec.locale,
 			name: rec.locale,
 		});
 	}).on('failure', function(error){
-		// debugger;
-		throw new Error(error);
+		res.render('500', {
+			locals: {
+				title: '500 - Internal Server Error',
+				desc: error
+			},
+			status: 500
+		});
 	});
 };
 
@@ -201,23 +249,26 @@ exports.update = function(req, res){
 			loc.updateAttributes({
 				locale: req.body.locale
 			}).on('success', function(id){
-				// debugger;
 				res.json({
 					success: true,
-					// locale: {
-					// 	name: req.body.name,
-					// }
 				}, 200);
 			}).on('failure', function(error){
-				// debugger;
-				throw new Error(error);
+				res.json({
+					success: false,
+					msg: error
+				}, 500);
 			});
 		}).on('failure', function(error){
-			// debugger;
-			throw new Error(error);
+			res.json({
+				success: false,
+				msg: error
+			}, 500);
 		});
 	} else {
-		throw new Error('Data not provided')
+		res.json({
+			success: false,
+			msg: 'Data not provided'
+		}, 500);
 	}
 };
 
@@ -225,7 +276,6 @@ exports.update = function(req, res){
  * DELETE /locales/:id
  */
 exports.destroy = function(req, res){
-	// debugger;
 	var localeId = parseInt(req.params.locale);
 	Locales.find(localeId).on('success', function(loc){
 		loc.destroy().on('success', function(poo){
@@ -233,11 +283,15 @@ exports.destroy = function(req, res){
 				success: true,
 			}, 200);
 		}).on('failure', function(error){
-			// debugger;
-			throw new Error(error);
+			res.json({
+				success: false,
+				msg: error
+			}, 500);
 		});
 	}).on('failure', function(error){
-		// debugger;
-		throw new Error(error);
+		res.json({
+			success: false,
+			msg: error
+		}, 500);
 	});
 };
