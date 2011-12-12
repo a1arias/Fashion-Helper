@@ -8,11 +8,15 @@ var dbconfig = require('../config.js').dbconfig,
 // Initialize database connection
 var sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.password);
 
-// Locale model
-var Articles = sequelize.import(__dirname + "/../models/Article");
+// Users model
+var Users = sequelize.import(__dirname + "/../models/User");
+var Roles = sequelize.import(__dirname + "/../models/Role");
+Users.hasMany(Roles);
+Roles.hasMany(Users);
 
-// Create the schema if necessary
-// Articles.sync();
+// Sync association logic and create the schema if necessary
+Users.sync();
+Roles.sync();
 
 /**
  * takes an Array of records
@@ -36,14 +40,14 @@ function mapCollection(recs, fields){
 };
 
 /**
- * GET /articles
+ * GET /users['.json' || '.xml']
  */
 exports.index = function(req, res){
-	Articles.findAll().on('success', function(articles){
+	Users.findAll().on('success', function(users){
 
 		switch(req.format){
 			case 'json':
-				var recs = mapCollection(articles, ['id', 'article_type', 'visible']);
+				var recs = mapCollection(articles, ['id', 'username', 'password', 'active']);
 				res.json({
 					success: true,
 					'data': recs
@@ -51,16 +55,16 @@ exports.index = function(req, res){
 				break;
 			
 			case 'xml':
-				res.send('<articles>' + articles.map(function(a){
-					return '<article>' + a.article_type + '</article>';
-				}).join('') + '</articles>');
+				res.send('<users>' + users.map(function(u){
+					return '<user>' + u.username + '</user>';
+				}).join('') + '</users>');
 				break;
 
 			default:
-				res.render('articles', {
+				res.render('users', {
 					locals: {
-						title: 'Articles',
-						data: articles
+						title: 'Users',
+						data: users
 					}
 				});	
 		}
@@ -99,21 +103,23 @@ exports.new = function(req, res){
 
 
 /**
- * POST /articles
+ * POST /users
  *
  * TODO: require admin here
  */
 exports.create = function(req, res){
-	var post = Articles.build({
-		article_type: req.body.article_type
+	var post = Users.build({
+		username: req.body.username,
+		password: req.body.password,
 	});
 	debugger;
 	post.save().on('success', function(id){
 		debugger;
 		var rec = {
 			'id': id.id,
-			'article_type': id.article_type,
-			'visible': id.visible
+			'username': id.username,
+			'password': id.password,
+			'active': id.active
 		};
 		res.json({
 			success: true,
@@ -125,43 +131,43 @@ exports.create = function(req, res){
 			success: false,
 			msg: err
 		}, 500);
-		// throw new Error(err);
 	});
 };
 
 /**
- * GET /articles/:id
+ * GET /users/:id
  */
 exports.show = function(req, res){
-	var articleId = parseInt(req.params.article);
+	var userId = parseInt(req.params.user);
 
-	Articles.find(articleId).on('success', function(article){
+	Users.find(userId).on('success', function(user){
 		switch(req.format){
 			case 'json':
-				if(!article){
+				if(!user){
 					res.json({
 						success: false,
 						msg: 'The requested resource could not be found'
 					}, 404);
 				} else {
 					var rec = {
-						'id': article.id,
-						'article': article.article_type,
-						'visible': article.visible
+						'id': user.id,
+						'username': user.username,
+						'password': user.password,
+						'visible': user.active
 					};
 					res.json({
 						success: true,
-						article: rec
+						user: rec
 					});
 				}
 				break;
 
 			case 'xml':
-				res.send('<article>' + article.article + '</article>');
+				res.send('<user>' + user.username + '</user>');
 				break;
 
 			default:
-				if(!article){
+				if(!user){
 					res.render('404', {
 						locals: {
 							title: '404 - Not Found',
@@ -170,11 +176,11 @@ exports.show = function(req, res){
 						status: 404
 					});
 				} else {
-					res.render('article_show', {
+					res.render('user_show', {
 						locals: {
-							title: 'Display Article',
+							title: 'Display User',
 							data: {
-								'article': article
+								'user': user
 							}
 						}
 					});
@@ -204,15 +210,15 @@ exports.show = function(req, res){
 
 
 /**
- * GET /articles/:id/edit
+ * GET /users/:id/edit
  */
 exports.edit = function(req, res){
-	var articleId = parseInt(req.params.article);
-	Articles.find(articleId).on('success', function(rec){
-		res.render('article_edit', {
+	var userId = parseInt(req.params.user);
+	Users.find(userId).on('success', function(rec){
+		res.render('user_edit', {
 			id: rec.id,
-			title: 'Edit article: ' + rec.article_type,
-			type: rec.article_type
+			title: 'Edit user: ' + rec.username,
+			username: rec.username
 		});
 	}).on('failure', function(err){
 		res.render('500', {
@@ -226,14 +232,16 @@ exports.edit = function(req, res){
 };
 
 /**
- * PUT /articles/:id
+ * PUT /users/:id
  */
  exports.update = function(req, res){
- 	if(req.body.article_type){
- 		var articleId = parseInt(req.params.article);
- 		Articles.find(articleId).on('success', function(rec){
+ 	if(req.body){
+ 		var userId = parseInt(req.params.user);
+ 		Users.find(userId).on('success', function(rec){
  			rec.updateAttributes({
- 				article_type: req.body.article_type
+ 				username: req.body.username,
+ 				password: req.body.password,
+ 				active: req.body.active
  			}).on('success', function(id){
  				res.json({
 					success: true
@@ -259,13 +267,13 @@ exports.edit = function(req, res){
  };
 
  /**
- * DELETE /articles/:id
+ * DELETE /users/:id
  *
  * TODO: add authorization here
  */
 exports.destroy = function(req, res){
-	var articleId = parseInt(req.params.article);
-	Articles.find(articleId).on('success', function(rec){
+	var userId = parseInt(req.params.user);
+	Users.find(userId).on('success', function(rec){
 		rec.destroy().on('success', function(foo){
 			res.json({
 				success: true,

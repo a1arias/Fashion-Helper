@@ -164,8 +164,23 @@ exports.index = function(req, res){
 		});
 		
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: Add xml res here
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					}
+				});
+		};
 	});
 };
 
@@ -194,20 +209,36 @@ exports.new = function(req, res){
 						}
 					});
 				}).on('failure', function(err){
-					debugger;
-					throw new Error(err);
+					res.render('500', {
+						locals: {
+							title: '500 - Internal Server Error',
+							desc: err
+						}
+					});
 				});
 			}).on('failure', function(err){
-				debugger;
-				throw new Error(err);
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					}
+				});
 			});
 		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
+			res.render('500', {
+				locals: {
+					title: '500 - Internal Server Error',
+					desc: err
+				}
+			});
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.render('500', {
+			locals: {
+				title: '500 - Internal Server Error',
+				desc: err
+			}
+		});
 	});
 };
 
@@ -277,8 +308,12 @@ exports.create = function(req, res){
 			data: rec
 		}, 200);
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.render('500', {
+			locals: {
+				title: '500 - Internal Server Error',
+				desc: err
+			}
+		});
 	});
 };
 
@@ -353,8 +388,23 @@ exports.show = function(req, res){
 					}
 		};
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: Add xml res here
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					}
+				});
+		};
 	});
 };
 
@@ -386,24 +436,34 @@ exports.edit = function(req, res){
 							}
 						});
 					}).on('failure', function(err){
-						debugger;
-						throw new Error(err);
+						res.json({
+							success: false,
+							msg: err
+						}, 500);
 					});
 				}).on('failure', function(err){
-					debugger;
-					throw new Error(err);
+					res.json({
+						success: false,
+						msg: err
+					}, 500);
 				});
 			}).on('failure', function(err){
-				debugger;
-				throw new Error(err);
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
 			});
 		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
+			res.json({
+				success: false,
+				msg: err
+			}, 500);
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };
 
@@ -444,12 +504,16 @@ exports.update = function(req, res){
 				success: true
 			}, 200);
 		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
+			res.json({
+				success: false,
+				msg: err
+			}, 500);
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };
 
@@ -463,12 +527,16 @@ exports.destroy = function(req, res){
 			res.json({
 				success: true,
 			}, 200);
-		}).on('failure', function(error){
-			// debugger;
-			throw new Error(error);
+		}).on('failure', function(err){
+			res.json({
+				success: false,
+				msg: err
+			}, 500);
 		});
-	}).on('failure', function(error){
-		// debugger;
-		throw new Error(error);
+	}).on('failure', function(err){
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };

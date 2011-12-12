@@ -184,7 +184,7 @@ exports.show = function(req, res){
 				} else {
 					res.render('brand_show', {
 						locals: {
-							title: 'Display Locale',
+							title: 'Display Brand',
 							data: {
 								'brand': brand
 							}

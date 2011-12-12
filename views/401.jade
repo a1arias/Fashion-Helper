@@ -1,0 +1,11 @@
+extends layout
+
+block css
+	link(rel='stylesheet', href='/stylesheets/error.css')
+
+block scripts
+	// override with nothing
+
+block content
+	#oops
+		pre(class="error")= desc

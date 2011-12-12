@@ -3,7 +3,7 @@ extends layout
 block content
 	div#formcntnr
 		form(action='/articles/'+id, method='post')
-			label(for='type')
-			input(name='type', id='type', value=type)
+			label(for='article_type')
+			input(name='article_type', id='article_type', value=type)
 			input(type="hidden", name="_method", value="put")
 			input(type='submit', value='Update')

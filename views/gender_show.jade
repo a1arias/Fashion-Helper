@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div.localecntnr
+			a(href='/genders/'+data.gender.id+'/edit', title='Edit '+data.gender.gender) #{data.gender.gender}
+			form(method='post', action='/genders/'+data.gender.id)
+				input(type='hidden', name='_method', value='DELETE')
+				input(type='submit', value='Delete')

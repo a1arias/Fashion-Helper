@@ -64,8 +64,97 @@ exports.index = function(req, res){
 				});
 		}
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
+	});
+};
+
+/**
+ * GET /genders/:id
+ */
+exports.show = function(req, res){
+	var genderId = parseInt(req.params.gender);
+
+	Genders.find(genderId).on('success', function(gender){
+		switch(req.format){
+			case 'json':
+				if(!gender){
+					res.json({
+						success: false,
+						msg: 'The requested resource could not be found'
+					}, 404);
+				} else {
+					var rec = {
+						'id': gender.id,
+						'gender': gender.gender,
+						'visible': gender.visible
+					};
+					res.json({
+						success: true,
+						article: rec
+					});
+				}
+				break;
+
+			case 'xml':
+				res.send('<gender>' + gender.gender + '</gender>');
+				break;
+
+			default:
+				if(!gender){
+					res.render('404', {
+						locals: {
+							title: '404 - Not Found',
+							desc: 'The requested resource could not be found'
+						},
+						status: 404
+					});
+				} else {
+					res.render('gender_show', {
+						locals: {
+							title: 'Display Gender',
+							data: {
+								'gender': gender
+							}
+						}
+					});
+				}
+		};
+	}).on('failure', function(err){
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };
 
@@ -94,12 +183,10 @@ exports.create = function(req, res){
 			success: true
 		}, 200);
 	}).on('failure', function(err){
-		debugger;
 		res.json({
 			success: false,
 			msg: err
 		}, 500);
-		// throw new Error(err);
 	});
 };
 
@@ -115,8 +202,10 @@ exports.edit = function(req, res){
 			gender: rec.gender
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };
 
@@ -131,19 +220,26 @@ exports.update = function(req, res){
 				gender: req.body.gender
 			}).on('success', function(err){
 				res.json({
-				success: true,
-			}, 200);
+					success: true,
+				}, 200);
 			}).on('failure', function(err){
-				debugger;
-				throw new Error(err);
-			});
-		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
-		});	
-	} else{
-		throw new Error('Data not provided');
-	}
+ 				res.json({
+					success: false,
+					msg: err
+				}, 500);
+ 			});
+ 		}).on('failure', function(err){
+ 			res.json({
+				success: false,
+				msg: err
+			}, 500);
+ 		});
+ 	} else {
+ 		res.json({
+			success: false,
+			msg: 'Data not provided'
+		}, 500);
+ 	}
 };
 
 /**
@@ -159,11 +255,15 @@ exports.destroy = function(req, res){
 				success: true,
 			}, 200);
 		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
+			res.json({
+				success: false,
+				msg: err
+			}, 500);
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };

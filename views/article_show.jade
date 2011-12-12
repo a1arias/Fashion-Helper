@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div.localecntnr
+			a(href='/articles/'+data.article.id+'/edit', title='Edit '+data.article.article_type) #{data.article.article_type}
+			form(method='post', action='/articles/'+data.article.id)
+				input(type='hidden', name='_method', value='DELETE')
+				input(type='submit', value='Delete')
