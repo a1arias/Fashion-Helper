@@ -28,7 +28,9 @@ Ext.define('FashionHelper.view.Articles', {
 				header: 'Id',
 				sortable: true,
 				dataIndex: 'id',
-				flex: 1
+				flex: 1,
+				editor: 'textfield',
+				disabled: true
 			}, {
 				header: 'Article Type',
 				sortable: true,

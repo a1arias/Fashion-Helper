@@ -20,6 +20,7 @@ Ext.define('FashionHelper.controller.Navigation', {
 				'goarticle': this.goArticle,
 				'gogender': this.goGender,
 				'goprofile': this.goProfile,
+				'gomapping': this.goMapping,
 				scope: this
 			}
 		});
@@ -65,5 +66,11 @@ Ext.define('FashionHelper.controller.Navigation', {
 		var portalview = this.getPortalView();
 		portalview.removeAll();
 		portalview.add(Ext.widget('profilecomp'));
+	},
+
+	goMapping: function(link){
+		var portalview = this.getPortalView();
+		portalview.removeAll();
+		portalview.add(Ext.widget('mappingcomp'));
 	}
 });

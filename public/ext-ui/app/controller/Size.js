@@ -18,7 +18,7 @@ Ext.define('FashionHelper.controller.Size', {
 			}
 		});
 	},
-	
+
 	addItem: function(button){
 		var store = this.getSizesStore();
 		store.insert(0, store.model.create());

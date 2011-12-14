@@ -124,8 +124,97 @@ exports.index = function(req, res){
 			};
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
+	});
+};
+
+/**
+ * GET /profiles/:id
+ */
+exports.show = function(req, res){
+	var profileId = parseInt(req.params.profile);
+
+	Profiles.find(profileId).on('success', function(profile){
+		switch(req.format){
+			case 'json':
+				if(!gender){
+					res.json({
+						success: false,
+						msg: 'The requested resource could not be found'
+					}, 404);
+				} else {
+					var rec = {
+						'id': profile.id,
+						'gender': profile.profile,
+						'visible': profile.visible
+					};
+					res.json({
+						success: true,
+						article: rec
+					});
+				}
+				break;
+
+			case 'xml':
+				res.send('<profile>' + profile.profile + '</profile>');
+				break;
+
+			default:
+				if(!profile){
+					res.render('404', {
+						locals: {
+							title: '404 - Not Found',
+							desc: 'The requested resource could not be found'
+						},
+						status: 404
+					});
+				} else {
+					res.render('profile_show', {
+						locals: {
+							title: 'Display Profile',
+							data: {
+								'profile': profile
+							}
+						}
+					});
+				}
+		};
+	}).on('failure', function(err){
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };
 
@@ -143,8 +232,13 @@ exports.new = function(req, res){
 			}
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.render('500', {
+			locals: {
+				title: '500 - Internal Server Error',
+				desc: err
+			},
+			status: 500
+		});
 	});
 };
 
@@ -172,8 +266,10 @@ exports.create = function(req, res){
 			success: true
 		}, 200);
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };
 
@@ -241,8 +337,24 @@ exports.show = function(req, res){
 				}
 		};
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };
 
@@ -265,12 +377,16 @@ exports.edit = function(req, res){
 				}
 			});
 		}).on('failure', function(err){
-			debugger;
-			throw new Error(err);
+			res.json({
+				success: false,
+				msg: err
+			}, 500);
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };
 
@@ -299,12 +415,16 @@ exports.update = function(req, res){
 					success: true,
 				}, 200);
 			}).on('failure', function(error){
-				// debugger;
-				throw new Error(error);
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
 			});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };
 
@@ -319,11 +439,15 @@ exports.destroy = function(req, res){
 				success: true,
 			}, 200);
 		}).on('failure', function(error){
-			// debugger;
-			throw new Error(error);
+			res.json({
+				success: false,
+				msg: err
+			}, 500);
 		});
 	}).on('failure', function(error){
-		// debugger;
-		throw new Error(error);
+		res.json({
+			success: false,
+			msg: err
+		}, 500);
 	});
 };

@@ -117,6 +117,15 @@ Ext.define('FashionHelper.view.Navigation', {
 					href: '#!/profile',
 					html: 'Profile'
 				}
+			}, {
+				xtype: 'component',
+				flex: 1,
+				id: 'gomapping',
+				autoEl: {
+					tag: 'a',
+					href: '#!/mapping',
+					html: 'Mapping'
+				}
 			}]
 		}];
 

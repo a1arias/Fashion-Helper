@@ -15,31 +15,49 @@ Ext.define('FashionHelper.model.Profile', {
 		type: 'string'
 	}, {
 		name: 'age',
-		type: 'int'
+		type: 'int',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'weight',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'height',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'chest',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'waist',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'seat',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'inside_leg',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'shoulder',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'arm',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'visible',
 		type: 'boolean',

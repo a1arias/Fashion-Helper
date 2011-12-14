@@ -41,61 +41,99 @@ Ext.define('FashionHelper.model.Size', {
 		type: 'string'
 	}, {
 		name: 'age_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'age_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'weight_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'weight_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'chest_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'chest_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'waist_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'waist_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'seat_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'seat_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'inside_leg_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'inside_leg_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'shoulder_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'shoulder_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'arm_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'arm_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'height_min',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'height_max',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'heal_toe',
-		type: 'int'
+		type: 'float',
+		useNull: true,
+		defaultValue: null
 	}, {
 		name: 'visible',
 		type: 'boolean',

@@ -25,35 +25,35 @@ module.exports = function(sequelize, DataTypes){
 			allowNull: true,
 		},
 		weight: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		},
 		height: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		},
 		chest: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		},
 		waist: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		},
 		seat: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		},
 		inside_leg: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		},
 		shoulder: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		},
 		arm: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.FLOAT,
 			allowNull: true,
 		}
 	}, {

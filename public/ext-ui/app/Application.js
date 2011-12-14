@@ -11,6 +11,7 @@ Ext.application({
         'Size',
         'Article',
         'Gender',
-        'Profile'
+        'Profile',
+        'Mapping'
     ]
 });

@@ -1,60 +1,34 @@
-Ext.define('FashionHelper.view.Sizes', {
-	extend: 'Ext.container.Container',
-	alias: 'widget.sizecomp',
-	layout: 'anchor',
-
+Ext.define('FashionHelper.view.Mappings', {
+	extend: 'Ext.form.Panel',
+	alias: 'widget.mappingcomp',
+	
+	frame: true,
+	
 	buildItems: function(){
 		return [{
+			xtype: 'combobox',
+			fieldLabel: 'Choose a Profile',
+		    store: 'Profiles',
+		    // queryMode: 'remote',
+		    displayField: 'name',
+		    valueField: 'id'
+		}, {
 			xtype: 'gridpanel',
-			anchor: '100%',
-			height: 450,
-			minHeight: 150,
 			title: 'Sizes List',
 			store: 'Sizes',
-			listeners: {
-				beforeadd: function(foo){
-						foo.store.clearFilter();
-				}
-			},
-
-			dockedItems: [{
-				xtype: 'toolbar',
-				dock: 'top',
-				items: [{
-					text: 'Add',
-					action: 'add',
-					iconCls: 'icon-add',
-				}, '-', {
-					itemId: 'delete',
-					text: 'Delete',
-					action: 'delete',
-					iconCls: 'icon-delete',
-				}]
-			}],
-
+			autoload: false,
 			columns: [{
 				header: 'Id',
 				sortable: true,
 				dataIndex: 'id',
-				flex: 1,
-				editor: 'textfield',
-				disabled: true
+				flex: 1
 			}, {
 				header: 'Brand',
 				sortable: true,
 				dataIndex: 'brand_id',
-				flex: 6,
+				flex: 3,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.brand;
-				},
-				editor: {
-					xtype: 'combobox',
-					// fieldLabel: 'Choose Brand',
-					store: 'Brands',
-					queryMode: 'remote',
-					displayField: 'brand',
-					valueField: 'id',
-					forceSelection: true
 				}
 			}, {
 				header: 'Locale',
@@ -63,15 +37,6 @@ Ext.define('FashionHelper.view.Sizes', {
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.locale;
-				},
-				editor: {
-					xtype: 'combobox',
-					// fieldLabel: 'Choose Locale',
-					store: 'Locales',
-					queryMode: 'remote',
-					displayField: 'locale',
-					valueField: 'id',
-					// forceSelection: true
 				}
 			}, {
 				header: 'Gender',
@@ -81,15 +46,6 @@ Ext.define('FashionHelper.view.Sizes', {
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					// debugger;
 					return view.store.data.items[rowIndex].data.gender;
-				},
-				editor: {
-					xtype: 'combobox',
-					// fieldLabel: 'Choose Gender',
-					store: 'Genders',
-					queryMode: 'remote',
-					displayField: 'gender',
-					valueField: 'id',
-					// forceSelection: true
 				}
 			}, {
 				header: 'Article',
@@ -98,22 +54,12 @@ Ext.define('FashionHelper.view.Sizes', {
 				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.article_type;
-				},
-				editor: {
-					xtype: 'combobox',
-					// fieldLabel: 'Choose Article',
-					store: 'Articles',
-					queryMode: 'remote',
-					displayField: 'article_type',
-					valueField: 'id',
-					forceSelection: true
 				}
 			}, {
 				header: 'Size',
 				sortable: true,
 				dataIndex: 'size',
-				flex: 2,
-				editor: 'textfield'
+				flex: 2
 			}, {
 				header: 'Age',
 				flex: 2,
@@ -121,14 +67,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'age_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'age_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Weight',
@@ -137,14 +81,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'weight_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'weight_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Chest',
@@ -153,14 +95,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'chest_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'chest_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Waist',
@@ -169,14 +109,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'waist_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'waist_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Seat',
@@ -184,14 +122,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'seat_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'seat_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Inside Leg',
@@ -199,14 +135,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'inside_leg_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'inside_leg_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Shoulder',
@@ -214,14 +148,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'shoulder_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'shoulder_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Arm',
@@ -229,14 +161,12 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'arm_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'arm_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Height',
@@ -244,54 +174,35 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'height_min',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'height_max',
-					width: 30,
-					editor: 'textfield'
+					width: 30
 				}]
 			}, {
 				header: 'Heal2Toe',
 				sortable: true,
 				dataIndex: 'heal_toe',
-				flex: 2,
-				editor: 'textfield'
+				flex: 1
 			}, {
 				header: 'Visible',
 				sortable: true,
 				dataIndex: 'visible',
-				flex: 2,
-				editor: 'textfield'
-			}],
-			
-			selType: 'rowmodel',
-			plugins: [
-				Ext.create('Ext.grid.plugin.RowEditing', {
-					clicksToEdit: 2,
-					listeners: {
-						edit: function(editor, e, opt){
-							var values = editor.newValues;
-							if(values.id){
-								editor.record.set(values);
-							} else {
-								editor.store.add(values);
-							}
-							editor.store.sync({
-								callback: function(){
-									this.grid.store.load();
-								},
-								scope: this
-							});
-						}
-					}
-				})
-			]
-		}];
-	},
+				flex: 1
+			}]
+		}]
 
+		// listeners: {
+		// 	selectionchange: function(model, records) {
+		// 		if (records[0]) {
+		// 			this.up('form').getForm().loadRecord(records[0]);
+		// 		}
+		// 	}
+		// }
+	},
+	
 	initComponent: function(){
 		config = Ext.apply({}, {items: this.buildItems()});
 		Ext.apply(this, Ext.apply(this.initialConfig, config));
