@@ -33,52 +33,146 @@ Ext.define('FashionHelper.controller.Mapping', {
 		mgs.filter([{
 			fn: function(item){
 				debugger;
-				return (item.get("age_min") >= combo.valueModels[0].data.age || !item.get("age_min"));
+				var age = combo.valueModels[0].data.age;
+				var age_min = item.get('age_min');
+				var age_max = item.get('age_max');
+				if(age && age_min && age_max){
+					if(age_min <= age && age_max >= age){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("age_max") <= combo.valueModels[0].data.age || !item.get("age_max"));
+				var weight = combo.valueModels[0].data.weight;
+				var weight_min = item.get('weight_min');
+				var weight_max = item.get('weight_max');
+				if(weight && weight_min && weight_max){
+					if(weight_min >= weight && weight_max <= weight){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("weight_min") >= combo.valueModels[0].data.weight || !item.get("weight_min") || item.get("weight_max") <= combo.valueModels[0].data.weight || !item.get("weight_max"));
+				var chest = combo.valueModels[0].data.chest;
+				var chest_min = item.get('chest_min');
+				var chest_max = item.get('chest_max');
+				if(chest && chest_min && chest_max){
+					if(chest_min <= chest && chest_max >= chest){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("chest_min") >= combo.valueModels[0].data.chest || !item.get("chest_min") || item.get("chest_max") <= combo.valueModels[0].data.chest || !item.get("chest_max"));
+				var waist = combo.valueModels[0].data.waist;
+				var waist_min = item.get('waist_min');
+				var waist_max = item.get('waist_max');
+				if(waist && waist_min && waist_max){
+					if(waist_min <= waist && waist_max >= waist){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("waist_min") >= combo.valueModels[0].data.waist || !item.get("waist_min") || item.get("waist_max") <= combo.valueModels[0].data.waist || !item.get("waist_max"));
+				var seat = combo.valueModels[0].data.seat;
+				var seat_min = item.get('seat_min');
+				var seat_max = item.get('seat_max');
+				if(seat && seat_min && seat_max){
+					if(seat_min <= seat && seat_max >= seat){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("seat_min") >= combo.valueModels[0].data.seat || !item.get("seat_min") || item.get("seat_max") <= combo.valueModels[0].data.seat || !item.get("seat_max"));
+				var inside_leg = combo.valueModels[0].data.inside_leg;
+				var inside_leg_min = item.get('inside_leg_min');
+				var inside_leg_max = item.get('inside_leg_max');
+				if(inside_leg && inside_leg_min && inside_leg_max){
+					if(inside_leg_min <= inside_leg && inside_leg_max >= inside_leg){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("inside_leg_min") >= combo.valueModels[0].data.inside_leg || !item.get("inside_leg_min") || item.get("inside_leg_max") <= combo.valueModels[0].data.inside_leg || !item.get("inside_leg_max"));
+				var shoulder = combo.valueModels[0].data.shoulder;
+				var shoulder_min = item.get('shoulder_min');
+				var shoulder_max = item.get('shoulder_max');
+				if(shoulder && shoulder_min && shoulder_max){
+					if(shoulder_min <= shoulder && shoulder_max >= shoulder){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("shoulder_min") >= item.data.shoulder || !item.get("shoulder_min") || item.get("shoulder_max") <= combo.valueModels[0].data.shoulder || !item.get("shoulder_max"));
+				var arm = combo.valueModels[0].data.arm;
+				var arm_min = item.get('arm_min');
+				var arm_max = item.get('arm_max');
+				if(arm && arm_min && arm_max){
+					if(arm_min <= arm && arm_max >= arm){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
 				debugger;
-				return (item.get("arm_min") >= item.data.arm_min || !item.get("arm_min") || item.get("arm_max") <= combo.valueModels[0].data.arm || !item.get("arm_max"));
-			}
-		}, {
-			fn: function(item){
-				debugger;
-				return (item.get("height_min") >= item.data.height_min || !item.get("height_min") || item.get("height_max") <= combo.valueModels[0].data.height || !item.get("height_max"));
+				var height = combo.valueModels[0].data.height;
+				var height_min = item.get('height_min');
+				var height_max = item.get('height_max');
+				if(height && height_min && height_max){
+					if(height_min <= height && height_max >= height){
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
 			}
 		}, {
 			fn: function(item){
