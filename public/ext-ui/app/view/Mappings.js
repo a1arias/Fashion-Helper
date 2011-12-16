@@ -26,7 +26,7 @@ Ext.define('FashionHelper.view.Mappings', {
 				header: 'Brand',
 				sortable: true,
 				dataIndex: 'brand_id',
-				flex: 3,
+				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.brand;
 				}
@@ -34,7 +34,7 @@ Ext.define('FashionHelper.view.Mappings', {
 				header: 'Locale',
 				sortable: true,
 				dataIndex: 'locale_id',
-				flex: 2,
+				flex: 1,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.locale;
 				}
@@ -67,12 +67,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'age_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'age_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Weight',
@@ -81,12 +81,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'weight_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'weight_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Chest',
@@ -95,12 +95,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'chest_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'chest_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Waist',
@@ -109,12 +109,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'waist_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'waist_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Seat',
@@ -122,12 +122,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'seat_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'seat_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Inside Leg',
@@ -135,12 +135,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'inside_leg_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'inside_leg_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Shoulder',
@@ -148,12 +148,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'shoulder_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'shoulder_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Arm',
@@ -161,12 +161,12 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'arm_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'arm_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Height',
@@ -174,18 +174,18 @@ Ext.define('FashionHelper.view.Mappings', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'height_min',
-					width: 30
+					width: 35
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'height_max',
-					width: 30
+					width: 35
 				}]
 			}, {
 				header: 'Heal2Toe',
 				sortable: true,
 				dataIndex: 'heal_toe',
-				flex: 1
+				flex: 1.5
 			}, {
 				header: 'Visible',
 				sortable: true,

@@ -43,7 +43,7 @@ Ext.define('FashionHelper.view.Sizes', {
 				header: 'Brand',
 				sortable: true,
 				dataIndex: 'brand_id',
-				flex: 3,
+				flex: 2,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.brand;
 				},
@@ -60,7 +60,7 @@ Ext.define('FashionHelper.view.Sizes', {
 				header: 'Locale',
 				sortable: true,
 				dataIndex: 'locale_id',
-				flex: 2,
+				flex: 1,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.locale;
 				},
@@ -121,13 +121,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'age_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'age_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -137,13 +137,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'weight_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'weight_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -153,13 +153,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'chest_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'chest_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -169,13 +169,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'waist_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'waist_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -184,13 +184,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'seat_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'seat_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -199,13 +199,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'inside_leg_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'inside_leg_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -214,13 +214,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'shoulder_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'shoulder_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -229,13 +229,13 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'arm_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'arm_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
@@ -244,26 +244,26 @@ Ext.define('FashionHelper.view.Sizes', {
 					header: 'min',
 					sortable: true,
 					dataIndex: 'height_min',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}, {
 					header: 'max',
 					sortable: true,
 					dataIndex: 'height_max',
-					width: 30,
+					width: 35,
 					editor: 'textfield'
 				}]
 			}, {
 				header: 'Heal2Toe',
 				sortable: true,
 				dataIndex: 'heal_toe',
-				flex: 2,
+				flex: 1.5,
 				editor: 'textfield'
 			}, {
 				header: 'Visible',
 				sortable: true,
 				dataIndex: 'visible',
-				flex: 2,
+				flex: 1,
 				editor: 'textfield'
 			}],
 			
