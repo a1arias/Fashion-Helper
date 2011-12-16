@@ -121,7 +121,23 @@ exports.index = function(req, res){
 			};
 		});
 	}).on('failure', function(err){
-		debugger;
-		throw new Error(err);
+		switch(req.format){
+			case 'json':
+				res.json({
+					success: false,
+					msg: err
+				}, 500);
+
+			// TODO: add xml res
+
+			default:
+				res.render('500', {
+					locals: {
+						title: '500 - Internal Server Error',
+						desc: err
+					},
+					status: 500
+				});
+		};
 	});
 };

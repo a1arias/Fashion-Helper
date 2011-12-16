@@ -43,7 +43,7 @@ Ext.define('FashionHelper.view.Sizes', {
 				header: 'Brand',
 				sortable: true,
 				dataIndex: 'brand_id',
-				flex: 6,
+				flex: 3,
 				renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
 					return view.store.data.items[rowIndex].data.brand;
 				},

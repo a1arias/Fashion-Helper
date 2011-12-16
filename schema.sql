@@ -30,17 +30,8 @@ CREATE TABLE `Articles` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `article_type` (`article_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='This table holds all articles';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='This table holds all articles';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Articles`
---
-
-LOCK TABLES `Articles` WRITE;
-/*!40000 ALTER TABLE `Articles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Articles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Brands`
@@ -57,17 +48,8 @@ CREATE TABLE `Brands` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `brand` (`brand`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Brands`
---
-
-LOCK TABLES `Brands` WRITE;
-/*!40000 ALTER TABLE `Brands` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Brands` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Genders`
@@ -84,17 +66,8 @@ CREATE TABLE `Genders` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `gender` (`gender`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='This table holds all genders';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='This table holds all genders';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Genders`
---
-
-LOCK TABLES `Genders` WRITE;
-/*!40000 ALTER TABLE `Genders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Genders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Locales`
@@ -111,17 +84,8 @@ CREATE TABLE `Locales` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `locale` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='This table holds all brands';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='This table holds all brands';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Locales`
---
-
-LOCK TABLES `Locales` WRITE;
-/*!40000 ALTER TABLE `Locales` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Locales` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Profiles`
@@ -135,30 +99,21 @@ CREATE TABLE `Profiles` (
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
   `gender_id` int(11) DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
-  `weight` int(11) DEFAULT NULL,
-  `height` int(11) DEFAULT NULL,
-  `chest` int(11) DEFAULT NULL,
-  `waist` int(11) DEFAULT NULL,
-  `seat` int(11) DEFAULT NULL,
-  `inside_leg` int(11) DEFAULT NULL,
-  `shoulder` int(11) DEFAULT NULL,
-  `arm` int(11) DEFAULT NULL,
+  `weight` float(4,2) DEFAULT NULL,
+  `height` float(4,2) DEFAULT NULL,
+  `chest` float(4,2) DEFAULT NULL,
+  `waist` float(4,2) DEFAULT NULL,
+  `seat` float(4,2) DEFAULT NULL,
+  `inside_leg` float(4,2) DEFAULT NULL,
+  `shoulder` float(4,2) DEFAULT NULL,
+  `arm` float(4,2) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `gender_id` (`gender_id`),
   CONSTRAINT `profiles_ibfk_1` FOREIGN KEY (`gender_id`) REFERENCES `Genders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='This table holds all measurements of each profile';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='This table holds all measurements of each profile';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Profiles`
---
-
-LOCK TABLES `Profiles` WRITE;
-/*!40000 ALTER TABLE `Profiles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Profiles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `ProfilesSizes`
@@ -183,15 +138,6 @@ CREATE TABLE `ProfilesSizes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ProfilesSizes`
---
-
-LOCK TABLES `ProfilesSizes` WRITE;
-/*!40000 ALTER TABLE `ProfilesSizes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ProfilesSizes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Roles`
 --
 
@@ -210,16 +156,6 @@ CREATE TABLE `Roles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Roles`
---
-
-LOCK TABLES `Roles` WRITE;
-/*!40000 ALTER TABLE `Roles` DISABLE KEYS */;
-INSERT INTO `Roles` VALUES (1,'admin',1,'2011-12-12 12:01:05','2011-12-12 12:01:05'),(2,'moderator',1,'2011-12-12 12:01:06','2011-12-12 12:01:06'),(3,'user',1,'2011-12-12 12:01:07','2011-12-12 12:01:07');
-/*!40000 ALTER TABLE `Roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `RolesUsers`
 --
 
@@ -234,15 +170,6 @@ CREATE TABLE `RolesUsers` (
   PRIMARY KEY (`role_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RolesUsers`
---
-
-LOCK TABLES `RolesUsers` WRITE;
-/*!40000 ALTER TABLE `RolesUsers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RolesUsers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Sizes`
@@ -260,23 +187,23 @@ CREATE TABLE `Sizes` (
   `size` varchar(255) COLLATE utf8_bin NOT NULL,
   `age_min` int(11) DEFAULT NULL,
   `age_max` int(11) DEFAULT NULL,
-  `weight_min` int(11) DEFAULT NULL,
-  `weight_max` int(11) DEFAULT NULL,
-  `chest_min` int(11) DEFAULT NULL,
-  `chest_max` int(11) DEFAULT NULL,
-  `waist_min` int(11) DEFAULT NULL,
-  `waist_max` int(11) DEFAULT NULL,
-  `seat_min` int(11) DEFAULT NULL,
-  `seat_max` int(11) DEFAULT NULL,
-  `inside_leg_min` int(11) DEFAULT NULL,
-  `inside_leg_max` int(11) DEFAULT NULL,
-  `shoulder_min` int(11) DEFAULT NULL,
-  `shoulder_max` int(11) DEFAULT NULL,
-  `arm_min` int(11) DEFAULT NULL,
-  `arm_max` int(11) DEFAULT NULL,
-  `height_min` int(11) DEFAULT NULL,
-  `height_max` int(11) DEFAULT NULL,
-  `heal_toe` int(11) DEFAULT NULL,
+  `weight_min` float(4,2) DEFAULT NULL,
+  `weight_max` float(4,2) DEFAULT NULL,
+  `chest_min` float(4,2) DEFAULT NULL,
+  `chest_max` float(4,2) DEFAULT NULL,
+  `waist_min` float(4,2) DEFAULT NULL,
+  `waist_max` float(4,2) DEFAULT NULL,
+  `seat_min` float(4,2) DEFAULT NULL,
+  `seat_max` float(4,2) DEFAULT NULL,
+  `inside_leg_min` float(4,2) DEFAULT NULL,
+  `inside_leg_max` float(4,2) DEFAULT NULL,
+  `shoulder_min` float(4,2) DEFAULT NULL,
+  `shoulder_max` float(4,2) DEFAULT NULL,
+  `arm_min` float(4,2) DEFAULT NULL,
+  `arm_max` float(4,2) DEFAULT NULL,
+  `height_min` float(4,2) DEFAULT NULL,
+  `height_max` float(4,2) DEFAULT NULL,
+  `heal_toe` float(4,2) DEFAULT NULL,
   `visible` tinyint(1) DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -289,17 +216,8 @@ CREATE TABLE `Sizes` (
   CONSTRAINT `sizes_ibfk_2` FOREIGN KEY (`brand_id`) REFERENCES `Brands` (`id`),
   CONSTRAINT `sizes_ibfk_3` FOREIGN KEY (`locale_id`) REFERENCES `Locales` (`id`),
   CONSTRAINT `sizes_ibfk_4` FOREIGN KEY (`article_type_id`) REFERENCES `Articles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Holds all sizes for different brands';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Holds all sizes for different brands';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Sizes`
---
-
-LOCK TABLES `Sizes` WRITE;
-/*!40000 ALTER TABLE `Sizes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Sizes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Users`
@@ -319,16 +237,6 @@ CREATE TABLE `Users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Holds information for all registered users';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Users`
---
-
-LOCK TABLES `Users` WRITE;
-/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'admin','5ebe2294ecd0e0f08eab7690d2a6ee69',1,'2011-12-12 12:01:11','2011-12-12 12:01:11');
-/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `UsersRoles`
@@ -351,16 +259,6 @@ CREATE TABLE `UsersRoles` (
   CONSTRAINT `usersroles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Holds all associations between Users and Roles';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `UsersRoles`
---
-
-LOCK TABLES `UsersRoles` WRITE;
-/*!40000 ALTER TABLE `UsersRoles` DISABLE KEYS */;
-INSERT INTO `UsersRoles` VALUES (1,1,1,'2011-12-12 12:01:13','2011-12-12 12:01:13');
-/*!40000 ALTER TABLE `UsersRoles` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -371,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-12-12  7:01:30
+-- Dump completed on 2011-12-15 22:22:09
