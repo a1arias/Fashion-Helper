@@ -29,6 +29,10 @@ Login to mysql and create a user:
 	GRANT ALL PRIVILEGES ON fashion_helper.* to 'user'@localhost IDENTIFIED BY 'password';
 	FLUSH PRIVILEGES;
 
+Logout as root and login as the new user. Then create the database.
+
+	CREATE DATABASE fashion_helper;
+	
 Logout of mysql and import the schema into the database:
 
 	cat fashion-helper/sql/schema.sql | mysql -uuser -p fashion_helper
